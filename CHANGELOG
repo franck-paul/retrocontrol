@@ -1,0 +1,8 @@
+2016-03-01	Franck Paul			<carnet.franck.paul@gmail.com>
+
+ * v2.2.4 : Compliance with recent releases of Dotclear
+
+2008-04-11  Oleksandr Syenchuk  <sacha@xn--phnix-csa.net>
+
+ * v2.2.2 : Better trackback link overriding, see
+ http://code.google.com/p/dcplugins/issues/detail?id=24

@@ -1,0 +1,43 @@
+# French translation of Rétrocontrôle
+# Copyright (C) 2007
+# Oleksandr Syenchuk <sacha@xn--phnix-csa.net>, 2007
+# Document type
+msgid ""
+msgstr ""
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-03-01 11:01+0100\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#, fuzzy
+msgid "Trackback source check"
+msgstr "Activer la vérification de l'origine de rétroliens"
+
+msgid "Filter configuration updated"
+msgstr "La configuration du filtre a été mise à jour"
+
+msgid "Verify trackback source"
+msgstr "Activer la vérification de l'origine de rétroliens"
+
+msgid "Allow recursive filtering"
+msgstr "Permettre le filtrage récursif"
+
+msgid "Active disposable addresses for trackbacks"
+msgstr "Activer les adresses jetables pour les rétroliens"
+
+msgid "Trackback address life time (in minutes):"
+msgstr "Durée de validité d'une adresse de rétrolien (en minutes) :"
+
+msgid "Valid"
+msgstr "Valider"
+
+msgid "View online help on Phénix.net"
+msgstr "Consulter l'aide en ligne sur Phénix.net"
+
+msgid "(help)"
+msgstr "(aide)"
+
+msgid "Online help"
+msgstr "Aide en ligne"
+
+#~ msgid "Filtered by %s."
+#~ msgstr "Filtré par %s."

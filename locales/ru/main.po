@@ -1,0 +1,56 @@
+# Russian translation of Rétrocontrôle
+# Copyright (C) 2007
+# Oleksandr Syenchuk <sacha@xn--phnix-csa.net>, 2007
+# Document type
+msgid ""
+msgstr ""
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-03-01 11:01+0100\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "Trackback source check"
+msgstr "Проверка отправителя тракбака"
+
+msgid "Filter configuration updated"
+msgstr "Фильтр обновлен"
+
+#, fuzzy
+msgid "Verify trackback source"
+msgstr "Проверка отправителя тракбака"
+
+msgid "Allow recursive filtering"
+msgstr ""
+
+msgid "Active disposable addresses for trackbacks"
+msgstr ""
+
+msgid "Trackback address life time (in minutes):"
+msgstr ""
+
+msgid "Valid"
+msgstr "Подтвердить"
+
+#, fuzzy
+msgid "View online help on Phénix.net"
+msgstr "Посмотреть помощь на сайте Phénix.net"
+
+msgid "(help)"
+msgstr "(помощь)"
+
+msgid "Online help"
+msgstr "Помощь в интзрнете"
+
+#~ msgid "Recursive search"
+#~ msgstr "Реккурентный поиск"
+
+#~ msgid "Test this option to determinate the best way to filter. Any suggestions are welcome on"
+#~ msgstr "Попробуйте зту опцию, чтобы найти наилучший способ фмльтрации. Вы можете написать о вашем впечатлении на"
+
+#~ msgid "the support page"
+#~ msgstr "странице поддержки"
+
+#~ msgid "Recursive search in Rétrocontrôle"
+#~ msgstr "Реккурентный поиск в Ретроконтроле"
+
+#~ msgid "Filtered by %s."
+#~ msgstr "Фильтровано %s."
