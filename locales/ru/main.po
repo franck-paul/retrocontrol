@@ -39,18 +39,3 @@ msgstr "(помощь)"
 
 msgid "Online help"
 msgstr "Помощь в интзрнете"
-
-#~ msgid "Recursive search"
-#~ msgstr "Реккурентный поиск"
-
-#~ msgid "Test this option to determinate the best way to filter. Any suggestions are welcome on"
-#~ msgstr "Попробуйте зту опцию, чтобы найти наилучший способ фмльтрации. Вы можете написать о вашем впечатлении на"
-
-#~ msgid "the support page"
-#~ msgstr "странице поддержки"
-
-#~ msgid "Recursive search in Rétrocontrôle"
-#~ msgstr "Реккурентный поиск в Ретроконтроле"
-
-#~ msgid "Filtered by %s."
-#~ msgstr "Фильтровано %s."
