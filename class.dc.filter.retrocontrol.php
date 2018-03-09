@@ -1,13 +1,16 @@
 <?php
-# -- BEGIN LICENSE BLOCK ----------------------------------
-# This file is part of Rétrocontrôle, a plugin for Dotclear 2.
-#
-# Copyright (c) Oleksandr Syenchuk, Alain Vagner and contributors
-#
-# Licensed under the GPL version 2.0 license.
-# A copy of this license is available in LICENSE file or at
-# http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
-# -- END LICENSE BLOCK ------------------------------------
+/**
+ * @brief retrocontrol, a plugin for Dotclear 2
+ *
+ * @package Dotclear
+ * @subpackage Plugins
+ *
+ * @author Oleksandr Syenchuk
+ * @author Alain Vagner
+ *
+ * @copyright Oleksandr Syenchuk, Alain Vagner
+ * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
+ */
 
 class dcFilterRetrocontrol extends dcSpamFilter
 {
@@ -90,27 +93,27 @@ class dcFilterRetrocontrol extends dcSpamFilter
         $res =
         '<script type="text/javascript">' . "\n" .
         '$(function() {' . "\n" .
-        '	$("#rc_sourceCheck").change(function()' . "\n" .
-        '	{' . "\n" .
-        '		if (this.checked)' . "\n" .
-        '			$("#sourceConfig").show();' . "\n" .
-        '		else' . "\n" .
-        '			$("#sourceConfig").hide();' . "\n" .
-        '	});' . "\n" .
-        '	' . "\n" .
-        '	if (!document.getElementById("rc_sourceCheck").checked)' . "\n" .
-        '		$("#sourceConfig").hide();' . "\n" .
+        ' $("#rc_sourceCheck").change(function()' . "\n" .
+        ' {' . "\n" .
+        '   if (this.checked)' . "\n" .
+        '     $("#sourceConfig").show();' . "\n" .
+        '   else' . "\n" .
+        '     $("#sourceConfig").hide();' . "\n" .
+        ' });' . "\n" .
+        ' ' . "\n" .
+        ' if (!document.getElementById("rc_sourceCheck").checked)' . "\n" .
+        '   $("#sourceConfig").hide();' . "\n" .
 
-        '	$("#rc_timeoutCheck").change(function()' . "\n" .
-        '	{' . "\n" .
-        '		if (this.checked)' . "\n" .
-        '			$("#timeoutConfig").show();' . "\n" .
-        '		else' . "\n" .
-        '			$("#timeoutConfig").hide();' . "\n" .
-        '	});' . "\n" .
-        '	' . "\n" .
-        '	if (!document.getElementById("rc_timeoutCheck").checked)' . "\n" .
-        '		$("#timeoutConfig").hide();' . "\n" .
+        ' $("#rc_timeoutCheck").change(function()' . "\n" .
+        ' {' . "\n" .
+        '   if (this.checked)' . "\n" .
+        '     $("#timeoutConfig").show();' . "\n" .
+        '   else' . "\n" .
+        '     $("#timeoutConfig").hide();' . "\n" .
+        ' });' . "\n" .
+        ' ' . "\n" .
+        ' if (!document.getElementById("rc_timeoutCheck").checked)' . "\n" .
+        '   $("#timeoutConfig").hide();' . "\n" .
         '});' . "\n" .
         '</script>' . "\n" .
 
@@ -143,7 +146,7 @@ class dcFilterRetrocontrol extends dcSpamFilter
         '<p><input type="submit" name="rc_send" value="' . __('Save') . '" />' .
             (is_callable(array($this->core, 'formNonce')) ? $this->core->formNonce() : '') . '</p>' .
 
-        '</form>';
+            '</form>';
 
         return $res;
     }
