@@ -15,16 +15,16 @@
 if (!defined('DC_RC_PATH')) {return;}
 
 $this->registerModule(
-    "Rétrocontrôle",                  // Name
+    "Rétrocontrôle",                    // Name
     "Trackback validity check",         // Description
     "Alain Vagner, Oleksandr Syenchuk", // Author
-    '2.2.6',                            // Version
-    array(
+    '2.3',                              // Version
+    [
+        'requires'    => [['core', '2.13']],                                      // Dependencies
         'permissions' => 'usage,contentadmin',                                    // Permissions
         'priority'    => 1001,                                                    // Priority
-        'dc_min'      => '2.8',                                                   // Min DC version
         'support'     => 'http://forum.dotclear.org/viewforum.php?id=16',         // Support URL
         'details'     => 'http://plugins.dotaddict.org/dc2/details/retrocontrol', // Doc URL
         'type'        => 'plugin'                                                // Type
-    )
+    ]
 );

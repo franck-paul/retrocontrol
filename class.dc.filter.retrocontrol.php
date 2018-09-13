@@ -144,7 +144,7 @@ class dcFilterRetrocontrol extends dcSpamFilter
         '</label></p>' .
 
         '<p><input type="submit" name="rc_send" value="' . __('Save') . '" />' .
-            (is_callable(array($this->core, 'formNonce')) ? $this->core->formNonce() : '') . '</p>' .
+            (is_callable([$this->core, 'formNonce']) ? $this->core->formNonce() : '') . '</p>' .
 
             '</form>';
 

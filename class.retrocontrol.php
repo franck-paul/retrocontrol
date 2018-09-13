@@ -14,10 +14,10 @@
 
 class retrocontrol
 {
-    public $uHost = array();
-    public $sHost = array();
-    public $uIP   = array();
-    public $sIP   = array();
+    public $uHost = [];
+    public $sHost = [];
+    public $uIP   = [];
+    public $sIP   = [];
 
     public static function checkTimeout($cur)
     {
@@ -45,7 +45,7 @@ class retrocontrol
         }
 
         # Check key expiration date
-        $post     = $core->blog->getPosts(array('post_id' => $cur->post_id));
+        $post     = $core->blog->getPosts(['post_id' => $cur->post_id]);
         $ts       = (int) $post->getTS();
         $curDate  = time() - $ts;
         $refDate  = (int) base_convert($key, 36, 10) ^ $ts;
@@ -68,9 +68,9 @@ class retrocontrol
 
         # Initializing search data
         $this->sIP   = gethostbynamel($site);
-        $this->sHost = array($site, $this->getSLD($site));
-        $this->uIP   = array($ip);
-        $this->uHost = array(gethostbyaddr($this->uIP[0]));
+        $this->sHost = [$site, $this->getSLD($site)];
+        $this->uIP   = [$ip];
+        $this->uHost = [gethostbyaddr($this->uIP[0])];
 
         if ($this->sIP && array_intersect($this->uIP, $this->sIP)) {
             return false;
@@ -79,7 +79,7 @@ class retrocontrol
         }
 
         # Recursive search
-        $sIP = ($this->sIP) ? $this->sIP : array();
+        $sIP = ($this->sIP) ? $this->sIP : [];
         $uIP = $this->uIP;
         while (true) {
             $sHost = $this->searchHost($sIP, $this->sHost);
@@ -123,7 +123,7 @@ class retrocontrol
 
     private function searchHost($ip, $allhosts)
     {
-        $res = array();
+        $res = [];
 
         if (!$ip) {return false;}
         foreach ($ip as $v) {
@@ -140,7 +140,7 @@ class retrocontrol
 
     private function searchIP($host, $allips)
     {
-        $res = array();
+        $res = [];
 
         if (!$host) {return false;}
         foreach ($host as $v) {

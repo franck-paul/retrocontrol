@@ -20,9 +20,9 @@ $core->spamfilters[]                = 'dcFilterRetrocontrol';
 
 $core->blog->settings->addNamespace('retrocontrol');
 if ($core->blog->settings->retrocontrol->rc_timeoutCheck) {
-    $core->addBehavior('coreBlogGetPosts', array('retrocontrol', 'adjustTrackbackURL'));
-    $core->addBehavior('publicBeforeTrackbackCreate', array('retrocontrol', 'checkTimeout'));
-    $core->url->register('trackback', 'trackback', '^trackback/([0-9]+/[0-9a-z]+)$', array('retrocontrol', 'preTrackback'));
+    $core->addBehavior('coreBlogGetPosts', ['retrocontrol', 'adjustTrackbackURL']);
+    $core->addBehavior('publicBeforeTrackbackCreate', ['retrocontrol', 'checkTimeout']);
+    $core->url->register('trackback', 'trackback', '^trackback/([0-9]+/[0-9a-z]+)$', ['retrocontrol', 'preTrackback']);
 }
 
 class rsExtPostRetrocontrol
