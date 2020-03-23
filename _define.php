@@ -23,8 +23,8 @@ $this->registerModule(
         'requires'    => [['core', '2.13']],                                      // Dependencies
         'permissions' => 'usage,contentadmin',                                    // Permissions
         'priority'    => 1001,                                                    // Priority
-        'support'     => 'http://forum.dotclear.org/viewforum.php?id=16',         // Support URL
-        'details'     => 'http://plugins.dotaddict.org/dc2/details/retrocontrol', // Doc URL
+        'support'     => 'https://forum.dotclear.org/viewforum.php?id=16',         // Support URL
+        'details'     => 'https://plugins.dotaddict.org/dc2/details/retrocontrol', // Doc URL
         'type'        => 'plugin'                                                // Type
     ]
 );

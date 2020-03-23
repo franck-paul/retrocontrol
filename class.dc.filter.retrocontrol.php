@@ -91,7 +91,7 @@ class dcFilterRetrocontrol extends dcSpamFilter
     private function showForm($url)
     {
         $res =
-        '<script type="text/javascript">' . "\n" .
+        '<script>' . "\n" .
         '$(function() {' . "\n" .
         ' $("#rc_sourceCheck").change(function()' . "\n" .
         ' {' . "\n" .
