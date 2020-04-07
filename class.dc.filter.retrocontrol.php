@@ -90,32 +90,10 @@ class dcFilterRetrocontrol extends dcSpamFilter
 
     private function showForm($url)
     {
-        $res =
-        '<script>' . "\n" .
-        '$(function() {' . "\n" .
-        ' $("#rc_sourceCheck").change(function()' . "\n" .
-        ' {' . "\n" .
-        '   if (this.checked)' . "\n" .
-        '     $("#sourceConfig").show();' . "\n" .
-        '   else' . "\n" .
-        '     $("#sourceConfig").hide();' . "\n" .
-        ' });' . "\n" .
-        ' ' . "\n" .
-        ' if (!document.getElementById("rc_sourceCheck").checked)' . "\n" .
-        '   $("#sourceConfig").hide();' . "\n" .
+        global $core;
 
-        ' $("#rc_timeoutCheck").change(function()' . "\n" .
-        ' {' . "\n" .
-        '   if (this.checked)' . "\n" .
-        '     $("#timeoutConfig").show();' . "\n" .
-        '   else' . "\n" .
-        '     $("#timeoutConfig").hide();' . "\n" .
-        ' });' . "\n" .
-        ' ' . "\n" .
-        ' if (!document.getElementById("rc_timeoutCheck").checked)' . "\n" .
-        '   $("#timeoutConfig").hide();' . "\n" .
-        '});' . "\n" .
-        '</script>' . "\n" .
+        $res =
+        dcPage::jsLoad(urldecode(dcPage::getPF('retrocontrol/settings.js')), $core->getVersion('retrocontrol')) .
 
         '<form method="post" action="' . $url . '">' .
 
