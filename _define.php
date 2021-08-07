@@ -11,16 +11,17 @@
  * @copyright Oleksandr Syenchuk, Alain Vagner
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-
-if (!defined('DC_RC_PATH')) {return;}
+if (!defined('DC_RC_PATH')) {
+    return;
+}
 
 $this->registerModule(
-    "Rétrocontrôle",                  // Name
-    "Trackback validity check",         // Description
-    "Alain Vagner, Oleksandr Syenchuk", // Author
-    '2.3',                              // Version
+    'Rétrocontrôle',                  // Name
+    'Trackback validity check',         // Description
+    'Alain Vagner, Oleksandr Syenchuk', // Author
+    '2.4',                              // Version
     [
-        'requires'    => [['core', '2.13']],                                       // Dependencies
+        'requires'    => [['core', '2.19']],                                       // Dependencies
         'permissions' => 'usage,contentadmin',                                     // Permissions
         'priority'    => 1001,                                                     // Priority
         'type'        => 'plugin',                                                 // Type

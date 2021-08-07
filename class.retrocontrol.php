@@ -11,7 +11,6 @@
  * @copyright Oleksandr Syenchuk, Alain Vagner
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-
 class retrocontrol
 {
     public $uHost = [];
@@ -125,7 +124,9 @@ class retrocontrol
     {
         $res = [];
 
-        if (!$ip) {return false;}
+        if (!$ip) {
+            return false;
+        }
         foreach ($ip as $v) {
             $host = gethostbyaddr($v);
             $host = ($host === $v) ? false : $this->getSLD($host);
@@ -142,7 +143,9 @@ class retrocontrol
     {
         $res = [];
 
-        if (!$host) {return false;}
+        if (!$host) {
+            return false;
+        }
         foreach ($host as $v) {
             $ip = gethostbynamel($v);
 

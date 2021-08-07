@@ -11,8 +11,9 @@
  * @copyright Oleksandr Syenchuk, Alain Vagner
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-
-if (!defined('DC_CONTEXT_ADMIN')) {return;}
+if (!defined('DC_CONTEXT_ADMIN')) {
+    return;
+}
 
 $m_version = $core->plugins->moduleInfo('retrocontrol', 'version');
 $i_version = $core->getVersion('retrocontrol');
@@ -22,8 +23,7 @@ if (version_compare($i_version, $m_version, '>=')) {
 }
 
 # --INSTALL AND UPDATE PROCEDURES--
-try
-{
+try {
     $core->blog->settings->addNamespace('retrocontrol');
 
     # New install / update (just erase settings - but not their values)
@@ -40,4 +40,5 @@ try
 } catch (Exception $e) {
     $core->error->add($e->getMessage());
 }
+
 return false;

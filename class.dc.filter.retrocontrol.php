@@ -11,7 +11,6 @@
  * @copyright Oleksandr Syenchuk, Alain Vagner
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-
 class dcFilterRetrocontrol extends dcSpamFilter
 {
     public $name    = 'Rétrocontrôle';
@@ -52,8 +51,6 @@ class dcFilterRetrocontrol extends dcSpamFilter
         if ($this->rc_sourceCheck && $t->checkSource($site, 0, $this->rc_recursive)) {
             return true;
         }
-
-        return;
     }
 
     public function getStatusMessage($status, $comment_id)
@@ -65,8 +62,7 @@ class dcFilterRetrocontrol extends dcSpamFilter
     {
         $this->core->blog->settings->addNamespace('retrocontrol');
         if (isset($_POST['rc_send'])) {
-            try
-            {
+            try {
                 $this->rc_sourceCheck  = empty($_POST['rc_sourceCheck']) ? false : true;
                 $this->rc_timeoutCheck = empty($_POST['rc_timeoutCheck']) ? false : true;
                 $this->rc_recursive    = empty($_POST['rc_recursive']) ? false : true;
@@ -92,8 +88,7 @@ class dcFilterRetrocontrol extends dcSpamFilter
     {
         global $core;
 
-        $res =
-        dcPage::jsLoad(urldecode(dcPage::getPF('retrocontrol/settings.js')), $core->getVersion('retrocontrol')) .
+        $res = dcPage::jsLoad(urldecode(dcPage::getPF('retrocontrol/settings.js')), $core->getVersion('retrocontrol')) .
 
         '<form method="post" action="' . $url . '">' .
 
