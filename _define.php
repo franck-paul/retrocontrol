@@ -25,10 +25,12 @@ $this->registerModule(
         'permissions' => 'usage,contentadmin',                                     // Permissions
         'priority'    => 1001,                                                     // Priority
         'type'        => 'plugin',                                                 // Type
-        'support'     => 'https://github.com/franck-paul/retrocontrol',            // Support URL
-        'details'     => 'https://plugins.dotaddict.org/dc2/details/retrocontrol', // Doc URL
         'settings'    => [                                                         // Settings
             'info' => 'See antispam filters'
-        ]
+        ],
+
+        'details'    => 'https://open-time.net/?q=retrocontrol',       // Details URL
+        'support'    => 'https://github.com/franck-paul/retrocontrol', // Support URL
+        'repository' => 'https://raw.githubusercontent.com/franck-paul/retrocontrol/main/dcstore.xml'
     ]
 );
