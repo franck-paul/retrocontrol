@@ -31,6 +31,6 @@ $this->registerModule(
 
         'details'    => 'https://open-time.net/?q=retrocontrol',       // Details URL
         'support'    => 'https://github.com/franck-paul/retrocontrol', // Support URL
-        'repository' => 'https://raw.githubusercontent.com/franck-paul/retrocontrol/main/dcstore.xml'
+        'repository' => 'https://raw.githubusercontent.com/franck-paul/retrocontrol/master/dcstore.xml'
     ]
 );
