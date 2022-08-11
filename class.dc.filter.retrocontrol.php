@@ -25,18 +25,18 @@ class dcFilterRetrocontrol extends dcSpamFilter
     {
         $this->description = __('Trackback source check');
 
-        $this->core->blog->settings->addNamespace('retrocontrol');
-        if ($this->core->blog->settings->retrocontrol->rc_sourceCheck !== null) {
-            $this->rc_sourceCheck = (bool) $this->core->blog->settings->retrocontrol->rc_sourceCheck;
+        dcCore::app()->blog->settings->addNamespace('retrocontrol');
+        if (dcCore::app()->blog->settings->retrocontrol->rc_sourceCheck !== null) {
+            $this->rc_sourceCheck = (bool) dcCore::app()->blog->settings->retrocontrol->rc_sourceCheck;
         }
-        if ($this->core->blog->settings->retrocontrol->rc_timeoutCheck !== null) {
-            $this->rc_timeoutCheck = (bool) $this->core->blog->settings->retrocontrol->rc_timeoutCheck;
+        if (dcCore::app()->blog->settings->retrocontrol->rc_timeoutCheck !== null) {
+            $this->rc_timeoutCheck = (bool) dcCore::app()->blog->settings->retrocontrol->rc_timeoutCheck;
         }
-        if ($this->core->blog->settings->retrocontrol->rc_recursive !== null) {
-            $this->rc_recursive = (bool) $this->core->blog->settings->retrocontrol->rc_recursive;
+        if (dcCore::app()->blog->settings->retrocontrol->rc_recursive !== null) {
+            $this->rc_recursive = (bool) dcCore::app()->blog->settings->retrocontrol->rc_recursive;
         }
-        if ($this->core->blog->settings->retrocontrol->rc_timeout) {
-            $this->rc_timeout = abs((int) $this->core->blog->settings->retrocontrol->rc_timeout);
+        if (dcCore::app()->blog->settings->retrocontrol->rc_timeout) {
+            $this->rc_timeout = abs((int) dcCore::app()->blog->settings->retrocontrol->rc_timeout);
         }
     }
 
@@ -46,7 +46,7 @@ class dcFilterRetrocontrol extends dcSpamFilter
             return;
         }
 
-        $t = new retrocontrol;
+        $t = new retrocontrol();
 
         if ($this->rc_sourceCheck && $t->checkSource($site, 0, $this->rc_recursive)) {
             return true;
@@ -60,7 +60,7 @@ class dcFilterRetrocontrol extends dcSpamFilter
 
     public function gui($url)
     {
-        $this->core->blog->settings->addNamespace('retrocontrol');
+        dcCore::app()->blog->settings->addNamespace('retrocontrol');
         if (isset($_POST['rc_send'])) {
             try {
                 $this->rc_sourceCheck  = empty($_POST['rc_sourceCheck']) ? false : true;
@@ -68,16 +68,16 @@ class dcFilterRetrocontrol extends dcSpamFilter
                 $this->rc_recursive    = empty($_POST['rc_recursive']) ? false : true;
                 $this->rc_timeout      = empty($_POST['rc_timeout']) ? $this->rc_timeout : abs((int) $_POST['rc_timeout']) * 60;
 
-                $this->core->blog->settings->retrocontrol->put('rc_sourceCheck', $this->rc_sourceCheck, 'boolean');
-                $this->core->blog->settings->retrocontrol->put('rc_timeoutCheck', $this->rc_timeoutCheck, 'boolean');
-                $this->core->blog->settings->retrocontrol->put('rc_recursive', $this->rc_recursive, 'boolean');
-                $this->core->blog->settings->retrocontrol->put('rc_timeout', $this->rc_timeout, 'integer');
+                dcCore::app()->blog->settings->retrocontrol->put('rc_sourceCheck', $this->rc_sourceCheck, 'boolean');
+                dcCore::app()->blog->settings->retrocontrol->put('rc_timeoutCheck', $this->rc_timeoutCheck, 'boolean');
+                dcCore::app()->blog->settings->retrocontrol->put('rc_recursive', $this->rc_recursive, 'boolean');
+                dcCore::app()->blog->settings->retrocontrol->put('rc_timeout', $this->rc_timeout, 'integer');
 
-                $this->core->blog->triggerBlog();
+                dcCore::app()->blog->triggerBlog();
                 dcPage::addSuccessNotice(__('Filter configuration have been successfully saved.'));
                 http::redirect($url);
             } catch (Exception $e) {
-                $this->core->error->add($e->getMessage());
+                dcCore::app()->error->add($e->getMessage());
             }
         } else {
             return $this->showForm($url);
@@ -86,9 +86,7 @@ class dcFilterRetrocontrol extends dcSpamFilter
 
     private function showForm($url)
     {
-        global $core;
-
-        $res = dcPage::jsLoad(urldecode(dcPage::getPF('retrocontrol/settings.js')), $core->getVersion('retrocontrol')) .
+        $res = dcPage::jsModuleLoad('retrocontrol/settings.js', dcCore::app()->getVersion('retrocontrol')) .
 
         '<form method="post" action="' . $url . '">' .
 
@@ -117,7 +115,7 @@ class dcFilterRetrocontrol extends dcSpamFilter
         '</label></p>' .
 
         '<p><input type="submit" name="rc_send" value="' . __('Save') . '" />' .
-            (is_callable([$this->core, 'formNonce']) ? $this->core->formNonce() : '') . '</p>' .
+            dcCore::app()->formNonce() . '</p>' .
 
             '</form>';
 

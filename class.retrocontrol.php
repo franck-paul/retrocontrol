@@ -20,7 +20,7 @@ class retrocontrol
 
     public static function checkTimeout($cur)
     {
-        global $tbc_key, $core;
+        global $tbc_key;
 
         $errmsg = "\n" . 'Invalid trackback. Are you using an expired URL?';
 
@@ -30,8 +30,8 @@ class retrocontrol
         }
 
         # Timeout setting
-        $core->blog->settings->addNamespace('retrocontrol');
-        $timeout = $core->blog->settings->retrocontrol->rc_timeout;
+        dcCore::app()->blog->settings->addNamespace('retrocontrol');
+        $timeout = dcCore::app()->blog->settings->retrocontrol->rc_timeout;
         $timeout = $timeout ? (int) $timeout : 300;
 
         # Check key validity
@@ -44,7 +44,7 @@ class retrocontrol
         }
 
         # Check key expiration date
-        $post     = $core->blog->getPosts(['post_id' => $cur->post_id]);
+        $post     = dcCore::app()->blog->getPosts(['post_id' => $cur->post_id]);
         $ts       = (int) $post->getTS();
         $curDate  = time() - $ts;
         $refDate  = (int) base_convert($key, 36, 10) ^ $ts;
@@ -85,7 +85,8 @@ class retrocontrol
             $uHost = $this->searchHost($uIP, $this->uHost);
 
             if (($sHost && array_intersect($sHost, $this->uHost)) || (
-                $uHost && array_intersect($uHost, $this->sHost))) {
+                $uHost && array_intersect($uHost, $this->sHost)
+            )) {
                 return false;
             }
 
@@ -93,7 +94,8 @@ class retrocontrol
             $uIP = $this->searchIP($uHost, $this->uIP);
 
             if (($sIP && array_intersect($sIP, $this->uIP)) || (
-                $uIP && array_intersect($uIP, $this->sIP))) {
+                $uIP && array_intersect($uIP, $this->sIP)
+            )) {
                 return false;
             }
 
@@ -111,12 +113,12 @@ class retrocontrol
 
     public static function preTrackback($args)
     {
-        global $tbc_key, $core;
+        global $tbc_key;
 
-        list($post_id, $tbc_key) = explode('/', $args);
+        [$post_id, $tbc_key] = explode('/', $args);
 
-        $tb = new dcTrackback($core);
-        $tb->receive($post_id);
+        $tb = new dcTrackback(dcCore::app());
+        $tb->receiveTrackback((int) $post_id);
         exit;
     }
 

@@ -19,18 +19,18 @@ $this->registerModule(
     'Rétrocontrôle',                  // Name
     'Trackback validity check',         // Description
     'Alain Vagner, Oleksandr Syenchuk', // Author
-    '2.4',                              // Version
+    '2.5',
     [
-        'requires'    => [['core', '2.19']],                                       // Dependencies
+        'requires'    => [['core', '2.23']],                                       // Dependencies
         'permissions' => 'usage,contentadmin',                                     // Permissions
         'priority'    => 1001,                                                     // Priority
         'type'        => 'plugin',                                                 // Type
         'settings'    => [                                                         // Settings
-            'info' => 'See antispam filters'
+            'info' => 'See antispam filters',
         ],
 
         'details'    => 'https://open-time.net/?q=retrocontrol',       // Details URL
         'support'    => 'https://github.com/franck-paul/retrocontrol', // Support URL
-        'repository' => 'https://raw.githubusercontent.com/franck-paul/retrocontrol/master/dcstore.xml'
+        'repository' => 'https://raw.githubusercontent.com/franck-paul/retrocontrol/master/dcstore.xml',
     ]
 );

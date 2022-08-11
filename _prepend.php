@@ -15,15 +15,15 @@ if (!defined('DC_RC_PATH')) {
     return;
 }
 
-$__autoload['dcFilterRetrocontrol'] = dirname(__FILE__) . '/class.dc.filter.retrocontrol.php';
-$__autoload['retrocontrol']         = dirname(__FILE__) . '/class.retrocontrol.php';
-$core->spamfilters[]                = 'dcFilterRetrocontrol';
+$__autoload['dcFilterRetrocontrol'] = __DIR__ . '/class.dc.filter.retrocontrol.php';
+$__autoload['retrocontrol']         = __DIR__ . '/class.retrocontrol.php';
+dcCore::app()->spamfilters[]        = 'dcFilterRetrocontrol';
 
-$core->blog->settings->addNamespace('retrocontrol');
-if ($core->blog->settings->retrocontrol->rc_timeoutCheck) {
-    $core->addBehavior('coreBlogGetPosts', ['retrocontrol', 'adjustTrackbackURL']);
-    $core->addBehavior('publicBeforeTrackbackCreate', ['retrocontrol', 'checkTimeout']);
-    $core->url->register('trackback', 'trackback', '^trackback/([0-9]+/[0-9a-z]+)$', ['retrocontrol', 'preTrackback']);
+dcCore::app()->blog->settings->addNamespace('retrocontrol');
+if (dcCore::app()->blog->settings->retrocontrol->rc_timeoutCheck) {
+    dcCore::app()->addBehavior('coreBlogGetPosts', ['retrocontrol', 'adjustTrackbackURL']);
+    dcCore::app()->addBehavior('publicBeforeTrackbackCreate', ['retrocontrol', 'checkTimeout']);
+    dcCore::app()->url->register('trackback', 'trackback', '^trackback/([0-9]+/[0-9a-z]+)$', ['retrocontrol', 'preTrackback']);
 }
 
 class rsExtPostRetrocontrol
@@ -31,7 +31,7 @@ class rsExtPostRetrocontrol
     public static function getTrackbackLink($rs)
     {
         $ts  = (int) $rs->getTS();
-        $key = base_convert((time() - $ts) ^ $ts, 10, 36);
+        $key = base_convert((string) ((time() - $ts) ^ $ts), 10, 36);
         $chk = substr(md5($rs->post_id . DC_MASTER_KEY . $key), 1, 4);
 
         return rsExtPost::getTrackbackLink($rs) . '/' . $chk . $key;
