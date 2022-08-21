@@ -20,12 +20,10 @@ class retrocontrol
 
     public static function checkTimeout($cur)
     {
-        global $tbc_key;
-
         $errmsg = "\n" . 'Invalid trackback. Are you using an expired URL?';
 
         # Trackback not adjusted or too short key
-        if (!$tbc_key || strlen($tbc_key) < 5) {
+        if (!dcCore::app()->retrocontrol_tbc_key || strlen(dcCore::app()->retrocontrol_tbc_key) < 5) {
             throw new Exception($errmsg);
         }
 
@@ -35,11 +33,11 @@ class retrocontrol
         $timeout = $timeout ? (int) $timeout : 300;
 
         # Check key validity
-        $chk     = substr($tbc_key, 0, 4);
-        $key     = substr($tbc_key, 4);
-        $tbc_key = substr(md5($cur->post_id . DC_MASTER_KEY . $key), 1, 4);
+        $chk                                = substr(dcCore::app()->retrocontrol_tbc_key, 0, 4);
+        $key                                = substr(dcCore::app()->retrocontrol_tbc_key, 4);
+        dcCore::app()->retrocontrol_tbc_key = substr(md5($cur->post_id . DC_MASTER_KEY . $key), 1, 4);
 
-        if ($tbc_key !== $chk) {
+        if (dcCore::app()->retrocontrol_tbc_key !== $chk) {
             throw new Exception($errmsg);
         }
 
@@ -113,9 +111,7 @@ class retrocontrol
 
     public static function preTrackback($args)
     {
-        global $tbc_key;
-
-        [$post_id, $tbc_key] = explode('/', $args);
+        [$post_id, dcCore::app()->retrocontrol_tbc_key] = explode('/', $args);
 
         $tb = new dcTrackback(dcCore::app());
         $tb->receiveTrackback((int) $post_id);
