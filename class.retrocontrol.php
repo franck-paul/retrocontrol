@@ -113,8 +113,8 @@ class retrocontrol
     {
         [$post_id, dcCore::app()->retrocontrol_tbc_key] = explode('/', $args);
 
-        $tb = new dcTrackback(dcCore::app());
-        $tb->receiveTrackback((int) $post_id);
+        (new dcTrackback())->receiveTrackback((int) $post_id);
+
         exit;
     }
 

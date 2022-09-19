@@ -86,7 +86,7 @@ class dcFilterRetrocontrol extends dcSpamFilter
 
     private function showForm($url)
     {
-        $res = dcPage::jsModuleLoad('retrocontrol/settings.js', dcCore::app()->getVersion('retrocontrol')) .
+        return dcPage::jsModuleLoad('retrocontrol/settings.js', dcCore::app()->getVersion('retrocontrol')) .
 
         '<form method="post" action="' . $url . '">' .
 
@@ -118,7 +118,5 @@ class dcFilterRetrocontrol extends dcSpamFilter
             dcCore::app()->formNonce() . '</p>' .
 
             '</form>';
-
-        return $res;
     }
 }

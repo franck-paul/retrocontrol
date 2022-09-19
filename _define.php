@@ -21,7 +21,7 @@ $this->registerModule(
     'Alain Vagner, Oleksandr Syenchuk', // Author
     '2.5',
     [
-        'requires'    => [['core', '2.23']],                                       // Dependencies
+        'requires'    => [['core', '2.24']],                                       // Dependencies
         'permissions' => 'usage,contentadmin',                                     // Permissions
         'priority'    => 1001,                                                     // Priority
         'type'        => 'plugin',                                                 // Type
