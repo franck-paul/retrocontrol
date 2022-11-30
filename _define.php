@@ -16,21 +16,24 @@ if (!defined('DC_RC_PATH')) {
 }
 
 $this->registerModule(
-    'Rétrocontrôle',                  // Name
-    'Trackback validity check',         // Description
-    'Alain Vagner, Oleksandr Syenchuk', // Author
-    '2.5',
+    'Rétrocontrôle',
+    'Trackback validity check',
+    'Alain Vagner, Oleksandr Syenchuk',
+    '3.0',
     [
-        'requires'    => [['core', '2.24']],                                       // Dependencies
-        'permissions' => 'usage,contentadmin',                                     // Permissions
-        'priority'    => 1001,                                                     // Priority
-        'type'        => 'plugin',                                                 // Type
-        'settings'    => [                                                         // Settings
+        'requires'    => [['core', '2.24']],
+        'permissions' => dcCore::app()->auth->makePermissions([
+            dcAuth::PERMISSION_USAGE,
+            dcAuth::PERMISSION_CONTENT_ADMIN,
+        ]),
+        'priority' => 1001,
+        'type'     => 'plugin',
+        'settings' => [
             'info' => 'See antispam filters',
         ],
 
-        'details'    => 'https://open-time.net/?q=retrocontrol',       // Details URL
-        'support'    => 'https://github.com/franck-paul/retrocontrol', // Support URL
+        'details'    => 'https://open-time.net/?q=retrocontrol',
+        'support'    => 'https://github.com/franck-paul/retrocontrol',
         'repository' => 'https://raw.githubusercontent.com/franck-paul/retrocontrol/master/dcstore.xml',
     ]
 );

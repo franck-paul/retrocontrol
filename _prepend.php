@@ -15,16 +15,11 @@ if (!defined('DC_RC_PATH')) {
     return;
 }
 
-$__autoload['dcFilterRetrocontrol'] = __DIR__ . '/class.dc.filter.retrocontrol.php';
-$__autoload['retrocontrol']         = __DIR__ . '/class.retrocontrol.php';
-dcCore::app()->spamfilters[]        = 'dcFilterRetrocontrol';
-
-dcCore::app()->blog->settings->addNamespace('retrocontrol');
-if (dcCore::app()->blog->settings->retrocontrol->rc_timeoutCheck) {
-    dcCore::app()->addBehavior('coreBlogGetPosts', ['retrocontrol', 'adjustTrackbackURL']);
-    dcCore::app()->addBehavior('publicBeforeTrackbackCreate', ['retrocontrol', 'checkTimeout']);
-    dcCore::app()->url->register('trackback', 'trackback', '^trackback/([0-9]+/[0-9a-z]+)$', ['retrocontrol', 'preTrackback']);
-}
+Clearbricks::lib()->autoload([
+    'dcFilterRetrocontrol' => __DIR__ . '/class.dc.filter.retrocontrol.php',
+    'retrocontrol'         => __DIR__ . '/class.retrocontrol.php',
+]);
+dcCore::app()->spamfilters[] = 'dcFilterRetrocontrol';
 
 class rsExtPostRetrocontrol
 {
@@ -36,4 +31,11 @@ class rsExtPostRetrocontrol
 
         return rsExtPost::getTrackbackLink($rs) . '/' . $chk . $key;
     }
+}
+
+dcCore::app()->blog->settings->addNamespace('retrocontrol');
+if (dcCore::app()->blog->settings->retrocontrol->rc_timeoutCheck) {
+    dcCore::app()->addBehavior('coreBlogGetPosts', [retrocontrol::class, 'adjustTrackbackURL']);
+    dcCore::app()->addBehavior('publicBeforeTrackbackCreate', [retrocontrol::class, 'checkTimeout']);
+    dcCore::app()->url->register('trackback', 'trackback', '^trackback/([0-9]+/[0-9a-z]+)$', [retrocontrol::class, 'preTrackback']);
 }

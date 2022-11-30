@@ -58,7 +58,7 @@ class dcFilterRetrocontrol extends dcSpamFilter
         return sprintf(__('Filtered by %s.'), $this->guiLink());
     }
 
-    public function gui($url)
+    public function gui(string $url): string
     {
         dcCore::app()->blog->settings->addNamespace('retrocontrol');
         if (isset($_POST['rc_send'])) {
@@ -82,9 +82,11 @@ class dcFilterRetrocontrol extends dcSpamFilter
         } else {
             return $this->showForm($url);
         }
+
+        return '';
     }
 
-    private function showForm($url)
+    private function showForm(string $url): string
     {
         return dcPage::jsModuleLoad('retrocontrol/settings.js', dcCore::app()->getVersion('retrocontrol')) .
 
