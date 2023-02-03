@@ -28,7 +28,6 @@ class retrocontrol
         }
 
         # Timeout setting
-        dcCore::app()->blog->settings->addNamespace('retrocontrol');
         $timeout = dcCore::app()->blog->settings->retrocontrol->rc_timeout;
         $timeout = $timeout ? (int) $timeout : 300;
 
@@ -76,7 +75,7 @@ class retrocontrol
         }
 
         # Recursive search
-        $sIP = ($this->sIP) ? $this->sIP : [];
+        $sIP = $this->sIP ?: [];
         $uIP = $this->uIP;
         while (true) {
             $sHost = $this->searchHost($sIP, $this->sHost);
@@ -109,6 +108,9 @@ class retrocontrol
         $rs->extend('rsExtPostRetrocontrol');
     }
 
+    /**
+     * @return never
+     */
     public static function preTrackback($args)
     {
         [$post_id, dcCore::app()->retrocontrol_tbc_key] = explode('/', $args);

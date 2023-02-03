@@ -16,16 +16,15 @@ class dcFilterRetrocontrol extends dcSpamFilter
     public $name    = 'Rétrocontrôle';
     public $has_gui = true;
 
-    private $rc_sourceCheck  = false;
-    private $rc_timeoutCheck = false;
-    private $rc_recursive    = true;
+    private bool $rc_sourceCheck  = false;
+    private bool $rc_timeoutCheck = false;
+    private bool $rc_recursive    = true;
     private $rc_timeout      = 300;
 
     protected function setInfo()
     {
         $this->description = __('Trackback source check');
 
-        dcCore::app()->blog->settings->addNamespace('retrocontrol');
         if (dcCore::app()->blog->settings->retrocontrol->rc_sourceCheck !== null) {
             $this->rc_sourceCheck = (bool) dcCore::app()->blog->settings->retrocontrol->rc_sourceCheck;
         }
@@ -60,7 +59,6 @@ class dcFilterRetrocontrol extends dcSpamFilter
 
     public function gui(string $url): string
     {
-        dcCore::app()->blog->settings->addNamespace('retrocontrol');
         if (isset($_POST['rc_send'])) {
             try {
                 $this->rc_sourceCheck  = empty($_POST['rc_sourceCheck']) ? false : true;
