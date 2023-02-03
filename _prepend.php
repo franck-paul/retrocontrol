@@ -33,9 +33,11 @@ class rsExtPostRetrocontrol
     }
 }
 
-dcCore::app()->blog->settings->addNamespace('retrocontrol');
-if (dcCore::app()->blog->settings->retrocontrol->rc_timeoutCheck) {
-    dcCore::app()->addBehavior('coreBlogGetPosts', [retrocontrol::class, 'adjustTrackbackURL']);
-    dcCore::app()->addBehavior('publicBeforeTrackbackCreate', [retrocontrol::class, 'checkTimeout']);
-    dcCore::app()->url->register('trackback', 'trackback', '^trackback/([0-9]+/[0-9a-z]+)$', [retrocontrol::class, 'preTrackback']);
+if (dcCore::app()->blog) {
+    dcCore::app()->blog->settings->addNamespace('retrocontrol');
+    if (dcCore::app()->blog->settings->retrocontrol->rc_timeoutCheck) {
+        dcCore::app()->addBehavior('coreBlogGetPosts', [retrocontrol::class, 'adjustTrackbackURL']);
+        dcCore::app()->addBehavior('publicBeforeTrackbackCreate', [retrocontrol::class, 'checkTimeout']);
+        dcCore::app()->url->register('trackback', 'trackback', '^trackback/([0-9]+/[0-9a-z]+)$', [retrocontrol::class, 'preTrackback']);
+    }
 }
