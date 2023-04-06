@@ -11,7 +11,11 @@
  * @copyright Oleksandr Syenchuk, Alain Vagner
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-class dcFilterRetrocontrol extends dcSpamFilter
+
+use Dotclear\Helper\Network\Http;
+use Dotclear\Plugin\antispam\SpamFilter;
+
+class dcFilterRetrocontrol extends SpamFilter
 {
     public $name    = 'Rétrocontrôle';
     public $has_gui = true;
@@ -19,7 +23,7 @@ class dcFilterRetrocontrol extends dcSpamFilter
     private bool $rc_sourceCheck  = false;
     private bool $rc_timeoutCheck = false;
     private bool $rc_recursive    = true;
-    private $rc_timeout      = 300;
+    private $rc_timeout           = 300;
 
     protected function setInfo()
     {
@@ -73,7 +77,7 @@ class dcFilterRetrocontrol extends dcSpamFilter
 
                 dcCore::app()->blog->triggerBlog();
                 dcPage::addSuccessNotice(__('Filter configuration have been successfully saved.'));
-                http::redirect($url);
+                Http::redirect($url);
             } catch (Exception $e) {
                 dcCore::app()->error->add($e->getMessage());
             }

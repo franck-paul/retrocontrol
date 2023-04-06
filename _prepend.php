@@ -11,6 +11,9 @@
  * @copyright Oleksandr Syenchuk, Alain Vagner
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
+
+use Dotclear\Helper\Clearbricks;
+
 if (!defined('DC_RC_PATH')) {
     return;
 }
