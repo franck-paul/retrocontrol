@@ -5,13 +5,20 @@
  * @package Dotclear
  * @subpackage Plugins
  *
- * @author Oleksandr Syenchuk
- * @author Alain Vagner
+ * @author Franck Paul and contributors
  *
- * @copyright Oleksandr Syenchuk, Alain Vagner
+ * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-class retrocontrol
+declare(strict_types=1);
+
+namespace Dotclear\Plugin\retrocontrol;
+
+use dcCore;
+use dcTrackback;
+use Exception;
+
+class Retrocontrol
 {
     public $uHost = [];
     public $sHost = [];
@@ -105,7 +112,7 @@ class retrocontrol
     public static function adjustTrackbackURL($rs)
     {
         # Override getTrackbackLink method
-        $rs->extend('rsExtPostRetrocontrol');
+        $rs->extend(rsExtPostRetrocontrol::class);
     }
 
     /**

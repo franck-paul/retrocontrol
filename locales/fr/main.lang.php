@@ -9,8 +9,11 @@
 # DOT NOT MODIFY THIS FILE !
 #
 
-l10n::$locales['Trackback source check'] = 'Vérification de l\'origine de rétroliens';
-l10n::$locales['Verify trackback source'] = 'Activer la vérification de l\'origine de rétroliens';
-l10n::$locales['Allow recursive filtering'] = 'Permettre le filtrage récursif';
-l10n::$locales['Active disposable addresses for trackbacks'] = 'Activer les adresses jetables pour les rétroliens';
-l10n::$locales['Trackback address life time (in minutes):'] = 'Durée de validité d\'une adresse de rétrolien (en minutes) :';
+use Dotclear\Helper\L10n;
+
+L10n::$locales['Trackback source check'] = 'Vérification de l\'origine de rétroliens';
+L10n::$locales['Verify trackback source'] = 'Activer la vérification de l\'origine de rétroliens';
+L10n::$locales['Allow recursive filtering'] = 'Permettre le filtrage récursif';
+L10n::$locales['Active disposable addresses for trackbacks'] = 'Activer les adresses jetables pour les rétroliens';
+L10n::$locales['Trackback address life time (in minutes):'] = 'Durée de validité d\'une adresse de rétrolien (en minutes) :';
+L10n::$locales['Save'] = '';

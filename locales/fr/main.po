@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-24 16:26+0100\n"
+"POT-Creation-Date: 2023-05-16 09:45+0200\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 
 msgid "Trackback source check"
@@ -22,3 +22,6 @@ msgstr "Activer les adresses jetables pour les rétroliens"
 
 msgid "Trackback address life time (in minutes):"
 msgstr "Durée de validité d'une adresse de rétrolien (en minutes) :"
+
+msgid "Save"
+msgstr ""

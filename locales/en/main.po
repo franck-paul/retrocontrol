@@ -13,29 +13,23 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../git-plugins/retrocontrol/src/AntispamFilterRetrocontrol.php:35
 msgid "Trackback source check"
 msgstr ""
 
-#: ../git-plugins/retrocontrol/src/AntispamFilterRetrocontrol.php:105
 msgid "Verify trackback source"
 msgstr ""
 
-#: ../git-plugins/retrocontrol/src/AntispamFilterRetrocontrol.php:111
 msgid "Allow recursive filtering"
 msgstr ""
 
-#: ../git-plugins/retrocontrol/src/AntispamFilterRetrocontrol.php:117
 msgid "Active disposable addresses for trackbacks"
 msgstr ""
 
-#: ../git-plugins/retrocontrol/src/AntispamFilterRetrocontrol.php:121
 msgid "Trackback address life time (in minutes):"
 msgstr ""
 
-#: ../git-plugins/retrocontrol/src/AntispamFilterRetrocontrol.php:126
 msgid "Save"
 msgstr ""

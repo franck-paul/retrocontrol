@@ -11,8 +11,8 @@
 
 use Dotclear\Helper\L10n;
 
-L10n::$locales['Trackback source check'] = 'Проверка отправителя тракбака';
-L10n::$locales['Verify trackback source'] = 'Проверка отправителя тракбака';
+L10n::$locales['Trackback source check'] = '';
+L10n::$locales['Verify trackback source'] = '';
 L10n::$locales['Allow recursive filtering'] = '';
 L10n::$locales['Active disposable addresses for trackbacks'] = '';
 L10n::$locales['Trackback address life time (in minutes):'] = '';

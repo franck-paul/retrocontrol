@@ -5,14 +5,11 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-01 11:01+0100\n"
+"POT-Creation-Date: 2023-05-16 09:45+0200\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 
 msgid "Trackback source check"
 msgstr "Проверка отправителя тракбака"
-
-msgid "Filter configuration updated"
-msgstr "Фильтр обновлен"
 
 #, fuzzy
 msgid "Verify trackback source"
@@ -27,15 +24,21 @@ msgstr ""
 msgid "Trackback address life time (in minutes):"
 msgstr ""
 
-msgid "Valid"
-msgstr "Подтвердить"
+msgid "Save"
+msgstr ""
+
+#~ msgid "Filter configuration updated"
+#~ msgstr "Фильтр обновлен"
+
+#~ msgid "Valid"
+#~ msgstr "Подтвердить"
 
 #, fuzzy
-msgid "View online help on Phénix.net"
-msgstr "Посмотреть помощь на сайте Phénix.net"
+#~ msgid "View online help on Phénix.net"
+#~ msgstr "Посмотреть помощь на сайте Phénix.net"
 
-msgid "(help)"
-msgstr "(помощь)"
+#~ msgid "(help)"
+#~ msgstr "(помощь)"
 
-msgid "Online help"
-msgstr "Помощь в интзрнете"
+#~ msgid "Online help"
+#~ msgstr "Помощь в интзрнете"
