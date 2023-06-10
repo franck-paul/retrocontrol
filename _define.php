@@ -19,7 +19,7 @@ $this->registerModule(
     'Rétrocontrôle',
     'Trackback validity check',
     'Alain Vagner, Oleksandr Syenchuk',
-    '4.1.1',
+    '4.2',
     [
         'requires'    => [['core', '2.26']],
         'permissions' => dcCore::app()->auth->makePermissions([
