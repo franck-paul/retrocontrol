@@ -1,10 +1,10 @@
 <modules xmlns:da="http://dotaddict.org/da/">
   <module id="retrocontrol">
     <name>Rétrocontrôle</name>
-    <version>4.2</version>
+    <version>4.2.1</version>
     <author>Alain Vagner, Oleksandr Syenchuk</author>
     <desc>Trackback validity check</desc>
-    <file>https://github.com/franck-paul/retrocontrol/releases/download/4.2/plugin-retrocontrol-4.2.zip</file>
+    <file>https://github.com/franck-paul/retrocontrol/releases/download/4.2.1/plugin-retrocontrol-4.2.1.zip</file>
     <da:dcmin>2.26</da:dcmin>
     <da:details>https://open-time.net/?q=retrocontrol</da:details>
     <da:support>https://github.com/franck-paul/retrocontrol</da:support>
