@@ -59,6 +59,56 @@ class Retrocontrol
         }
     }
 
+    /**
+     * Get the first IP address (IPv4 or IPv6) of a host name
+     * Simulates gethostbyname() but with IPv6 support
+     *
+     * @param      string  $name   The hostname
+     *
+     * @return     string
+     */
+    private function gethostbynameipv6(string $name): string
+    {
+        $addr = $this->gethostbynamelipv6($name);
+        if (is_array($addr)) {
+            return $addr[0];
+        }
+
+        return $name;
+    }
+
+    /**
+     * Get the IP addresses (IPv4 or IPv6) of a host name
+     * Simulates gethostbynamel() but with IPv6 support
+     *
+     * @param      string  $name   The hostname
+     *
+     * @return     array|false
+     */
+    private function gethostbynamelipv6(string $name)
+    {
+        $ret = [];
+        foreach (dns_get_record($name, DNS_A | DNS_AAAA) as $e) {
+            $ret[] = $e[$e['type'] === 'A' ? 'ip' : 'ipv6'];
+        }
+
+        return count($ret) > 0 ? $ret : false;
+    }
+
+    /**
+     * Get the IPV6 address from a hostname
+     *
+     * @param string $hostname
+     *
+     * @return string|null If no IPV6 address is found it will return null
+     */
+    private function gethostbyaddripv6(string $hostname): ?string
+    {
+        $record = dns_get_record($hostname, DNS_AAAA);
+
+        return $record[0]['ipv6'] ?? null;
+    }
+
     public function checkSource($url, $ip = null, $recursive = true)
     {
         $site = @parse_url($url);
@@ -70,10 +120,10 @@ class Retrocontrol
         $ip   = $ip ?: $_SERVER['REMOTE_ADDR'];
 
         # Initializing search data
-        $this->sIP   = gethostbynamel($site);
+        $this->sIP   = $this->gethostbynamelipv6($site);
         $this->sHost = [$site, $this->getSLD($site)];
         $this->uIP   = [$ip];
-        $this->uHost = [gethostbyaddr($this->uIP[0])];
+        $this->uHost = [$this->gethostbyaddripv6($this->uIP[0])];
 
         if ($this->sIP && array_intersect($this->uIP, $this->sIP)) {
             return false;
@@ -135,7 +185,7 @@ class Retrocontrol
             return false;
         }
         foreach ($ip as $v) {
-            $host = gethostbyaddr($v);
+            $host = $this->gethostbyaddripv6($v);
             $host = ($host === $v) ? false : $this->getSLD($host);
 
             if ($host && !in_array($host, $allhosts)) {
@@ -154,7 +204,7 @@ class Retrocontrol
             return false;
         }
         foreach ($host as $v) {
-            $ip = gethostbynamel($v);
+            $ip = $this->gethostbynamelipv6($v);
 
             if (!$ip) {
                 continue;
