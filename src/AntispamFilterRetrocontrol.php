@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\retrocontrol;
 
 use dcCore;
-use dcPage;
+use Dotclear\Core\Backend\Notices;
 use Dotclear\Helper\Html\Form\Checkbox;
 use Dotclear\Helper\Html\Form\Form;
 use Dotclear\Helper\Html\Form\Label;
@@ -120,7 +120,7 @@ class AntispamFilterRetrocontrol extends SpamFilter
                 $settings->put('timeout', $this->timeout, 'integer');
 
                 dcCore::app()->blog->triggerBlog();
-                dcPage::addSuccessNotice(__('Filter configuration have been successfully saved.'));
+                Notices::addSuccessNotice(__('Filter configuration have been successfully saved.'));
                 Http::redirect($url);
             } catch (Exception $e) {
                 dcCore::app()->error->add($e->getMessage());
@@ -134,7 +134,7 @@ class AntispamFilterRetrocontrol extends SpamFilter
 
     private function showForm(string $url): string
     {
-        return dcPage::jsModuleLoad('retrocontrol/js/settings.js', dcCore::app()->getVersion('retrocontrol')) .
+        return My::jsLoad('settings.js') .
 
         (new Form('retrocontrol-form'))
         ->action($url)
