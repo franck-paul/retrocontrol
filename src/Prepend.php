@@ -33,7 +33,7 @@ class Prepend extends Process
         dcCore::app()->spamfilters[] = AntispamFilterRetrocontrol::class;
 
         if (dcCore::app()->blog) {
-            $settings = dcCore::app()->blog->settings->get(My::id());
+            $settings = My::settings();
             if ($settings->timeoutCheck) {
                 dcCore::app()->addBehavior('coreBlogGetPosts', Retrocontrol::adjustTrackbackURL(...));
                 dcCore::app()->addBehavior('publicBeforeTrackbackCreate', Retrocontrol::checkTimeout(...));

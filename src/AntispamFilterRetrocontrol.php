@@ -46,7 +46,7 @@ class AntispamFilterRetrocontrol extends SpamFilter
     {
         $this->description = __('Trackback source check');
 
-        $settings = dcCore::app()->blog->settings->get(My::id());
+        $settings = My::settings();
         if ($settings->sourceCheck !== null) {
             $this->sourceCheck = (bool) $settings->sourceCheck;
         }
@@ -113,7 +113,7 @@ class AntispamFilterRetrocontrol extends SpamFilter
                 $this->recursive    = empty($_POST['rc_recursive']) ? false : true;
                 $this->timeout      = empty($_POST['rc_timeout']) ? $this->timeout : abs((int) $_POST['rc_timeout']) * 60;
 
-                $settings = dcCore::app()->blog->settings->get(My::id());
+                $settings = My::settings();
                 $settings->put('sourceCheck', $this->sourceCheck, 'boolean');
                 $settings->put('timeoutCheck', $this->timeoutCheck, 'boolean');
                 $settings->put('recursive', $this->recursive, 'boolean');
@@ -162,7 +162,7 @@ class AntispamFilterRetrocontrol extends SpamFilter
             (new Para())->items([
                 (new Submit(['rc_send'], __('Save')))
                     ->accesskey('s'),
-                dcCore::app()->formNonce(false),
+                ... My::hiddenFields(),
             ]),
         ])
         ->render();

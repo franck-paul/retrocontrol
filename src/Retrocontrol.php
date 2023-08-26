@@ -60,24 +60,6 @@ class Retrocontrol
     }
 
     /**
-     * Get the first IP address (IPv4 or IPv6) of a host name
-     * Simulates gethostbyname() but with IPv6 support
-     *
-     * @param      string  $name   The hostname
-     *
-     * @return     string
-     */
-    private function gethostbynameipv6(string $name): string
-    {
-        $addr = $this->gethostbynamelipv6($name);
-        if (is_array($addr)) {
-            return $addr[0];
-        }
-
-        return $name;
-    }
-
-    /**
      * Get the IP addresses (IPv4 or IPv6) of a host name
      * Simulates gethostbynamel() but with IPv6 support
      *

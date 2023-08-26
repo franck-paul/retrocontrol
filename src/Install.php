@@ -42,14 +42,14 @@ class Install extends Process
                         $settings->rename('rc_' . $name, $name);
                     }
                 };
-                $settings = dcCore::app()->blog->settings->get(My::id());
+                $settings = My::settings();
                 foreach (['sourceCheck', 'timeoutCheck', 'recursive', 'timeout'] as $name) {
                     $rename($name, $settings);
                 }
             }
 
             // New install / update (just settings but not their values)
-            $settings = dcCore::app()->blog->settings->get(My::id());
+            $settings = My::settings();
             $settings->put('sourceCheck', false, dcNamespace::NS_BOOL, 'Check trackback source', false, true);
             $settings->put('timeoutCheck', false, dcNamespace::NS_BOOL, 'Use disposable URL for trackbacks', false, true);
             $settings->put('recursive', true, dcNamespace::NS_BOOL, 'Recursive filtering while checking source', false, true);
