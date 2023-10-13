@@ -16,16 +16,33 @@ namespace Dotclear\Plugin\retrocontrol;
 
 use dcCore;
 use dcTrackback;
+use Dotclear\Database\Cursor;
+use Dotclear\Database\MetaRecord;
 use Exception;
 
 class Retrocontrol
 {
-    public $uHost = [];
-    public $sHost = [];
-    public $uIP   = [];
-    public $sIP   = [];
+    /**
+     * @var array<string>
+     */
+    public array $uHost = [];
 
-    public static function checkTimeout($cur)
+    /**
+     * @var array<string>
+     */
+    public array $sHost = [];
+
+    /**
+     * @var array<string>
+     */
+    public array $uIP = [];
+
+    /**
+     * @var array<string>
+     */
+    public array $sIP = [];
+
+    public static function checkTimeout(Cursor $cur): string
     {
         $errmsg = "\n" . 'Invalid trackback. Are you using an expired URL?';
 
@@ -57,6 +74,8 @@ class Retrocontrol
         if ($diffDate < 1 || $diffDate > $timeout) {
             throw new Exception($errmsg);
         }
+
+        return '';
     }
 
     /**
@@ -65,9 +84,9 @@ class Retrocontrol
      *
      * @param      string  $name   The hostname
      *
-     * @return     array|false
+     * @return     array<string>|false
      */
-    private function gethostbynamelipv6(string $name)
+    private function gethostbynamelipv6(string $name): array|bool
     {
         $ret = [];
         foreach (dns_get_record($name, DNS_A | DNS_AAAA) as $e) {
@@ -91,7 +110,7 @@ class Retrocontrol
         return $record[0]['ipv6'] ?? null;
     }
 
-    public function checkSource($url, $ip = null, $recursive = true)
+    public function checkSource(string $url, ?string $ip = null, bool $recursive = true): bool
     {
         $site = @parse_url($url);
         if (!($site && $url)) {
@@ -102,7 +121,7 @@ class Retrocontrol
         $ip   = $ip ?: $_SERVER['REMOTE_ADDR'];
 
         # Initializing search data
-        $this->sIP   = $this->gethostbynamelipv6($site);
+        $this->sIP   = $this->gethostbynamelipv6($site) ?: [];
         $this->sHost = [$site, $this->getSLD($site)];
         $this->uIP   = [$ip];
         $this->uHost = [$this->gethostbyaddripv6($this->uIP[0])];
@@ -141,16 +160,18 @@ class Retrocontrol
         }
     }
 
-    public static function adjustTrackbackURL($rs)
+    public static function adjustTrackbackURL(MetaRecord $rs): string
     {
         # Override getTrackbackLink method
         $rs->extend(rsExtPostRetrocontrol::class);
+
+        return '';
     }
 
     /**
      * @return never
      */
-    public static function preTrackback($args)
+    public static function preTrackback(string $args): never
     {
         [$post_id, dcCore::app()->retrocontrol_tbc_key] = explode('/', $args);
 
@@ -159,7 +180,13 @@ class Retrocontrol
         exit;
     }
 
-    private function searchHost($ip, $allhosts)
+    /**
+     * @param      array<string>       $ip        The IPs
+     * @param      array<string>       $allhosts  The hosts
+     *
+     * @return     array<string>|bool
+     */
+    private function searchHost(array $ip, array $allhosts): array|bool
     {
         $res = [];
 
@@ -178,7 +205,13 @@ class Retrocontrol
         return empty($res) ? false : $res;
     }
 
-    private function searchIP($host, $allips)
+    /**
+     * @param      array<string>       $host    The host
+     * @param      array<string>       $allips  The IPs
+     *
+     * @return     array<string>|bool
+     */
+    private function searchIP(array $host, array $allips): array|bool
     {
         $res = [];
 
@@ -202,7 +235,7 @@ class Retrocontrol
         return empty($res) ? false : $res;
     }
 
-    private function getSLD($host)
+    private function getSLD(string $host): string
     {
         $t = strrpos($host, '.');
 

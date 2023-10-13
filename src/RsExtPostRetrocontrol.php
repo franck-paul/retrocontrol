@@ -14,11 +14,12 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\retrocontrol;
 
+use Dotclear\Database\MetaRecord;
 use rsExtPost;
 
 class rsExtPostRetrocontrol
 {
-    public static function getTrackbackLink($rs)
+    public static function getTrackbackLink(MetaRecord $rs): string
     {
         $ts  = (int) $rs->getTS();
         $key = base_convert((string) ((time() - $ts) ^ $ts), 10, 36);

@@ -29,20 +29,20 @@ use Exception;
 class AntispamFilterRetrocontrol extends SpamFilter
 {
     /** @var string Filter name */
-    public $name = 'Rétrocontrôle';
+    public string $name = 'Rétrocontrôle';
 
     /** @var bool Filter has settings GUI? */
-    public $has_gui = true;
+    public bool $has_gui = true;
 
     private bool $sourceCheck  = false;
     private bool $timeoutCheck = false;
     private bool $recursive    = true;
-    private $timeout           = 300;
+    private int $timeout       = 300;
 
     /**
      * Sets the filter description.
      */
-    protected function setInfo()
+    protected function setInfo(): void
     {
         $this->description = __('Trackback source check');
 
@@ -84,7 +84,7 @@ class AntispamFilterRetrocontrol extends SpamFilter
             return;
         }
 
-        if ($this->sourceCheck && (new Retrocontrol())->checkSource($site, 0, $this->recursive)) {
+        if ($this->sourceCheck && (new Retrocontrol())->checkSource($site, null, $this->recursive)) {
             return true;
         }
     }
@@ -99,7 +99,7 @@ class AntispamFilterRetrocontrol extends SpamFilter
      *
      * @return     string  The status message.
      */
-    public function getStatusMessage(string $status, ?int $comment_id)
+    public function getStatusMessage(string $status, ?int $comment_id): string
     {
         return sprintf(__('Filtered by %s.'), $this->guiLink());
     }
