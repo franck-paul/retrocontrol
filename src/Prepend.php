@@ -14,7 +14,9 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\retrocontrol;
 
+use ArrayObject;
 use dcCore;
+use Dotclear\App;
 use Dotclear\Core\Process;
 
 class Prepend extends Process
@@ -30,7 +32,11 @@ class Prepend extends Process
             return false;
         }
 
-        dcCore::app()->spamfilters[] = AntispamFilterRetrocontrol::class;
+        App::behavior()->addBehaviors([
+            'AntispamInitFilters' => function (ArrayObject $spamfilters): void {
+                $spamfilters->append(AntispamFilterRetrocontrol::class);
+            },
+        ]);
 
         if (dcCore::app()->blog) {
             $settings = My::settings();
