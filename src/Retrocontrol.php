@@ -23,22 +23,22 @@ use Exception;
 class Retrocontrol
 {
     /**
-     * @var array<string>
+     * @var array<int, string>
      */
     public array $uHost = [];
 
     /**
-     * @var array<string>
+     * @var array<int, string>
      */
     public array $sHost = [];
 
     /**
-     * @var array<string>
+     * @var array<int, string>
      */
     public array $uIP = [];
 
     /**
-     * @var array<string>
+     * @var array<int, string>
      */
     public array $sIP = [];
 
@@ -84,16 +84,18 @@ class Retrocontrol
      *
      * @param      string  $name   The hostname
      *
-     * @return     array<string>|false
+     * @return     array<string>
      */
-    private function gethostbynamelipv6(string $name): array|bool
+    private function gethostbynamelipv6(string $name): array
     {
         $ret = [];
-        foreach (dns_get_record($name, DNS_A | DNS_AAAA) as $e) {
-            $ret[] = $e[$e['type'] === 'A' ? 'ip' : 'ipv6'];
+        if ($records = dns_get_record($name, DNS_A | DNS_AAAA)) {
+            foreach ($records as $e) {
+                $ret[] = $e[$e['type'] === 'A' ? 'ip' : 'ipv6'];
+            }
         }
 
-        return count($ret) > 0 ? $ret : false;
+        return $ret;
     }
 
     /**
@@ -124,7 +126,7 @@ class Retrocontrol
         $this->sIP   = $this->gethostbynamelipv6($site) ?: [];
         $this->sHost = [$site, $this->getSLD($site)];
         $this->uIP   = [$ip];
-        $this->uHost = [$this->gethostbyaddripv6($this->uIP[0])];
+        $this->uHost = [(string) $this->gethostbyaddripv6($this->uIP[0])];
 
         if ($this->sIP && array_intersect($this->uIP, $this->sIP)) {
             return false;
@@ -133,8 +135,17 @@ class Retrocontrol
         }
 
         # Recursive search
+
+        /**
+         * @var array<int, string>
+         */
         $sIP = $this->sIP ?: [];
+
+        /**
+         * @var array<int, string>
+         */
         $uIP = $this->uIP;
+
         while (true) {
             $sHost = $this->searchHost($sIP, $this->sHost);
             $uHost = $this->searchHost($uIP, $this->uHost);
@@ -181,20 +192,20 @@ class Retrocontrol
     }
 
     /**
-     * @param      array<string>       $ip        The IPs
-     * @param      array<string>       $allhosts  The hosts
+     * @param      array<int, string>       $ip        The IPs
+     * @param      array<int, string>       $allhosts  The hosts
      *
-     * @return     array<string>|bool
+     * @return     array<int, string>
      */
-    private function searchHost(array $ip, array $allhosts): array|bool
+    private function searchHost(array $ip, array $allhosts): array
     {
         $res = [];
 
-        if (!$ip) {
-            return false;
+        if (!count($ip)) {
+            return $res;
         }
         foreach ($ip as $v) {
-            $host = $this->gethostbyaddripv6($v);
+            $host = (string) $this->gethostbyaddripv6($v);
             $host = ($host === $v) ? false : $this->getSLD($host);
 
             if ($host && !in_array($host, $allhosts)) {
@@ -202,26 +213,26 @@ class Retrocontrol
             }
         }
 
-        return empty($res) ? false : $res;
+        return $res;
     }
 
     /**
-     * @param      array<string>       $host    The host
-     * @param      array<string>       $allips  The IPs
+     * @param      array<int, string>       $host    The host
+     * @param      array<int, string>       $allips  The IPs
      *
-     * @return     array<string>|bool
+     * @return     array<int, string>
      */
-    private function searchIP(array $host, array $allips): array|bool
+    private function searchIP(array $host, array $allips): array
     {
         $res = [];
 
         if (!$host) {
-            return false;
+            return $res;
         }
         foreach ($host as $v) {
             $ip = $this->gethostbynamelipv6($v);
 
-            if (!$ip) {
+            if (!count($ip)) {
                 continue;
             }
 
@@ -232,7 +243,7 @@ class Retrocontrol
             }
         }
 
-        return empty($res) ? false : $res;
+        return $res;
     }
 
     private function getSLD(string $host): string
