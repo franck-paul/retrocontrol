@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\retrocontrol;
 
 use dcCore;
+use Dotclear\App;
 use Dotclear\Core\Backend\Notices;
 use Dotclear\Helper\Html\Form\Checkbox;
 use Dotclear\Helper\Html\Form\Form;
@@ -84,7 +85,7 @@ class AntispamFilterRetrocontrol extends SpamFilter
             return;
         }
 
-        if ($this->sourceCheck && (new Retrocontrol())->checkSource($site, null, $this->recursive)) {
+        if ($this->sourceCheck && (new Retrocontrol())->checkSource((string) $site, null, $this->recursive)) {
             return true;
         }
     }
@@ -119,7 +120,7 @@ class AntispamFilterRetrocontrol extends SpamFilter
                 $settings->put('recursive', $this->recursive, 'boolean');
                 $settings->put('timeout', $this->timeout, 'integer');
 
-                dcCore::app()->blog->triggerBlog();
+                App::blog()->triggerBlog();
                 Notices::addSuccessNotice(__('Filter configuration have been successfully saved.'));
                 Http::redirect($url);
             } catch (Exception $e) {

@@ -16,6 +16,7 @@ namespace Dotclear\Plugin\retrocontrol;
 
 use dcCore;
 use dcTrackback;
+use Dotclear\App;
 use Dotclear\Database\Cursor;
 use Dotclear\Database\MetaRecord;
 use Exception;
@@ -52,7 +53,7 @@ class Retrocontrol
         }
 
         # Timeout setting
-        $timeout = dcCore::app()->blog->settings->retrocontrol->rc_timeout;
+        $timeout = My::settings()->rc_timeout;
         $timeout = $timeout ? (int) $timeout : 300;
 
         # Check key validity
@@ -65,7 +66,7 @@ class Retrocontrol
         }
 
         # Check key expiration date
-        $post     = dcCore::app()->blog->getPosts(['post_id' => $cur->post_id]);
+        $post     = App::blog()->getPosts(['post_id' => $cur->post_id]);
         $ts       = (int) $post->getTS();
         $curDate  = time() - $ts;
         $refDate  = (int) base_convert($key, 36, 10) ^ $ts;
