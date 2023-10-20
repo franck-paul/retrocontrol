@@ -156,7 +156,7 @@ class AntispamFilterRetrocontrol extends SpamFilter
                     ->label((new Label(__('Active disposable addresses for trackbacks'), Label::INSIDE_TEXT_AFTER))),
             ]),
             (new Para())->items([
-                (new Number('rc_timeout', 1, 9999, (int) $this->timeout / 60))
+                (new Number('rc_timeout', 1, 9999, (int) ($this->timeout / 60)))
                     ->label((new Label(__('Trackback address life time (in minutes):'), Label::INSIDE_TEXT_BEFORE))),
             ]),
             (new Para())->items([
