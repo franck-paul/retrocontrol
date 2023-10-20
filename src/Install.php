@@ -14,9 +14,9 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\retrocontrol;
 
-use dcCore;
-use dcNamespace;
+use Dotclear\App;
 use Dotclear\Core\Process;
+use Dotclear\Interface\Core\BlogWorkspaceInterface;
 use Exception;
 
 class Install extends Process
@@ -34,10 +34,10 @@ class Install extends Process
 
         try {
             // Update
-            $old_version = dcCore::app()->getVersion(My::id());
+            $old_version = App::version()->getVersion(My::id());
             if (version_compare((string) $old_version, '4.0', '<')) {
                 // Change settings names (remove rc_ prefix in them)
-                $rename = function (string $name, dcNamespace $settings): void {
+                $rename = function (string $name, BlogWorkspaceInterface $settings): void {
                     if ($settings->settingExists('rc_' . $name, true)) {
                         $settings->rename('rc_' . $name, $name);
                     }
@@ -50,12 +50,12 @@ class Install extends Process
 
             // New install / update (just settings but not their values)
             $settings = My::settings();
-            $settings->put('sourceCheck', false, dcNamespace::NS_BOOL, 'Check trackback source', false, true);
-            $settings->put('timeoutCheck', false, dcNamespace::NS_BOOL, 'Use disposable URL for trackbacks', false, true);
-            $settings->put('recursive', true, dcNamespace::NS_BOOL, 'Recursive filtering while checking source', false, true);
-            $settings->put('timeout', 300, dcNamespace::NS_INT, 'Trackback URL time life (in seconds)', false, true);
+            $settings->put('sourceCheck', false, App::blogWorkspace()::NS_BOOL, 'Check trackback source', false, true);
+            $settings->put('timeoutCheck', false, App::blogWorkspace()::NS_BOOL, 'Use disposable URL for trackbacks', false, true);
+            $settings->put('recursive', true, App::blogWorkspace()::NS_BOOL, 'Recursive filtering while checking source', false, true);
+            $settings->put('timeout', 300, App::blogWorkspace()::NS_INT, 'Trackback URL time life (in seconds)', false, true);
         } catch (Exception $e) {
-            dcCore::app()->error->add($e->getMessage());
+            App::error()->add($e->getMessage());
         }
 
         return true;

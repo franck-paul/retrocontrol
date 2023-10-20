@@ -14,8 +14,6 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\retrocontrol;
 
-use dcCore;
-use dcTrackback;
 use Dotclear\App;
 use Dotclear\Database\Cursor;
 use Dotclear\Database\MetaRecord;
@@ -48,7 +46,7 @@ class Retrocontrol
         $errmsg = "\n" . 'Invalid trackback. Are you using an expired URL?';
 
         # Trackback not adjusted or too short key
-        if (!dcCore::app()->retrocontrol_tbc_key || strlen(dcCore::app()->retrocontrol_tbc_key) < 5) {
+        if (!App::frontend()->retrocontrol_tbc_key || strlen(App::frontend()->retrocontrol_tbc_key) < 5) {
             throw new Exception($errmsg);
         }
 
@@ -57,11 +55,11 @@ class Retrocontrol
         $timeout = $timeout ? (int) $timeout : 300;
 
         # Check key validity
-        $chk                                = substr(dcCore::app()->retrocontrol_tbc_key, 0, 4);
-        $key                                = substr(dcCore::app()->retrocontrol_tbc_key, 4);
-        dcCore::app()->retrocontrol_tbc_key = substr(md5($cur->post_id . DC_MASTER_KEY . $key), 1, 4);
+        $chk                                  = substr(App::frontend()->retrocontrol_tbc_key, 0, 4);
+        $key                                  = substr(App::frontend()->retrocontrol_tbc_key, 4);
+        App::frontend()->retrocontrol_tbc_key = substr(md5($cur->post_id . DC_MASTER_KEY . $key), 1, 4);
 
-        if (dcCore::app()->retrocontrol_tbc_key !== $chk) {
+        if (App::frontend()->retrocontrol_tbc_key !== $chk) {
             throw new Exception($errmsg);
         }
 
@@ -185,9 +183,9 @@ class Retrocontrol
      */
     public static function preTrackback(string $args): never
     {
-        [$post_id, dcCore::app()->retrocontrol_tbc_key] = explode('/', $args);
+        [$post_id, App::frontend()->retrocontrol_tbc_key] = explode('/', $args);
 
-        (new dcTrackback())->receiveTrackback((int) $post_id);
+        App::trackback()->receiveTrackback((int) $post_id);
 
         exit;
     }

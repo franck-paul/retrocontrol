@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\retrocontrol;
 
 use ArrayObject;
-use dcCore;
 use Dotclear\App;
 use Dotclear\Core\Process;
 
@@ -38,12 +37,12 @@ class Prepend extends Process
             },
         ]);
 
-        if (dcCore::app()->blog) {
+        if (App::blog()->isDefined()) {
             $settings = My::settings();
             if ($settings->timeoutCheck) {
-                dcCore::app()->addBehavior('coreBlogGetPosts', Retrocontrol::adjustTrackbackURL(...));
-                dcCore::app()->addBehavior('publicBeforeTrackbackCreate', Retrocontrol::checkTimeout(...));
-                dcCore::app()->url->register('trackback', 'trackback', '^trackback/([0-9]+/[0-9a-z]+)$', Retrocontrol::preTrackback(...));
+                App::behavior()->addBehavior('coreBlogGetPosts', Retrocontrol::adjustTrackbackURL(...));
+                App::behavior()->addBehavior('publicBeforeTrackbackCreate', Retrocontrol::checkTimeout(...));
+                App::url()->register('trackback', 'trackback', '^trackback/([0-9]+/[0-9a-z]+)$', Retrocontrol::preTrackback(...));
             }
         }
 
