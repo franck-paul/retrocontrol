@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\retrocontrol;
 
+use Dotclear\App;
 use Dotclear\Database\MetaRecord;
 use Dotclear\Schema\Extension\Post;
 
@@ -23,7 +24,7 @@ class rsExtPostRetrocontrol
     {
         $ts  = (int) $rs->getTS();
         $key = base_convert((string) ((time() - $ts) ^ $ts), 10, 36);
-        $chk = substr(md5($rs->post_id . DC_MASTER_KEY . $key), 1, 4);
+        $chk = substr(md5($rs->post_id . App::config()->masterKey() . $key), 1, 4);
 
         return Post::getTrackbackLink($rs) . '/' . $chk . $key;
     }

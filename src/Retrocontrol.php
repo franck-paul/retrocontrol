@@ -57,7 +57,7 @@ class Retrocontrol
         # Check key validity
         $chk                                  = substr(App::frontend()->retrocontrol_tbc_key, 0, 4);
         $key                                  = substr(App::frontend()->retrocontrol_tbc_key, 4);
-        App::frontend()->retrocontrol_tbc_key = substr(md5($cur->post_id . DC_MASTER_KEY . $key), 1, 4);
+        App::frontend()->retrocontrol_tbc_key = substr(md5($cur->post_id . App::config()->masterKey() . $key), 1, 4);
 
         if (App::frontend()->retrocontrol_tbc_key !== $chk) {
             throw new Exception($errmsg);
