@@ -162,7 +162,7 @@ class AntispamFilterRetrocontrol extends SpamFilter
             (new Para())->items([
                 (new Submit(['rc_send'], __('Save')))
                     ->accesskey('s'),
-                ... My::hiddenFields(),
+                App::nonce()->formNonce(),
             ]),
         ])
         ->render();
