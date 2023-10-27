@@ -118,6 +118,7 @@ class Retrocontrol
             # Bad URL => SPAM
             return true;
         }
+
         $site = $site['host'];
         $ip   = $ip ?: $_SERVER['REMOTE_ADDR'];
 
@@ -200,9 +201,10 @@ class Retrocontrol
     {
         $res = [];
 
-        if (!count($ip)) {
+        if ($ip === []) {
             return $res;
         }
+
         foreach ($ip as $v) {
             $host = (string) $this->gethostbyaddripv6($v);
             $host = ($host === $v) ? false : $this->getSLD($host);
@@ -225,13 +227,14 @@ class Retrocontrol
     {
         $res = [];
 
-        if (!$host) {
+        if ($host === []) {
             return $res;
         }
+
         foreach ($host as $v) {
             $ip = $this->gethostbynamelipv6($v);
 
-            if (!count($ip)) {
+            if ($ip === []) {
                 continue;
             }
 

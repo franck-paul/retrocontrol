@@ -37,7 +37,7 @@ class Install extends Process
             $old_version = App::version()->getVersion(My::id());
             if (version_compare((string) $old_version, '4.0', '<')) {
                 // Change settings names (remove rc_ prefix in them)
-                $rename = function (string $name, BlogWorkspaceInterface $settings): void {
+                $rename = static function (string $name, BlogWorkspaceInterface $settings) : void {
                     if ($settings->settingExists('rc_' . $name, true)) {
                         $settings->rename('rc_' . $name, $name);
                     }
@@ -54,8 +54,8 @@ class Install extends Process
             $settings->put('timeoutCheck', false, App::blogWorkspace()::NS_BOOL, 'Use disposable URL for trackbacks', false, true);
             $settings->put('recursive', true, App::blogWorkspace()::NS_BOOL, 'Recursive filtering while checking source', false, true);
             $settings->put('timeout', 300, App::blogWorkspace()::NS_INT, 'Trackback URL time life (in seconds)', false, true);
-        } catch (Exception $e) {
-            App::error()->add($e->getMessage());
+        } catch (Exception $exception) {
+            App::error()->add($exception->getMessage());
         }
 
         return true;

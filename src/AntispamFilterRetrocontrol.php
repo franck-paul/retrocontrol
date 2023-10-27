@@ -35,8 +35,11 @@ class AntispamFilterRetrocontrol extends SpamFilter
     public bool $has_gui = true;
 
     private bool $sourceCheck  = false;
+
     private bool $timeoutCheck = false;
+
     private bool $recursive    = true;
+
     private int $timeout       = 300;
 
     /**
@@ -50,12 +53,15 @@ class AntispamFilterRetrocontrol extends SpamFilter
         if ($settings->sourceCheck !== null) {
             $this->sourceCheck = (bool) $settings->sourceCheck;
         }
+
         if ($settings->timeoutCheck !== null) {
             $this->timeoutCheck = (bool) $settings->timeoutCheck;
         }
+
         if ($settings->recursive !== null) {
             $this->recursive = (bool) $settings->recursive;
         }
+
         if ($settings->timeout) {
             $this->timeout = abs((int) $settings->timeout);
         }
@@ -108,9 +114,9 @@ class AntispamFilterRetrocontrol extends SpamFilter
     {
         if (isset($_POST['rc_send'])) {
             try {
-                $this->sourceCheck  = empty($_POST['rc_sourceCheck']) ? false : true;
-                $this->timeoutCheck = empty($_POST['rc_timeoutCheck']) ? false : true;
-                $this->recursive    = empty($_POST['rc_recursive']) ? false : true;
+                $this->sourceCheck  = !empty($_POST['rc_sourceCheck']);
+                $this->timeoutCheck = !empty($_POST['rc_timeoutCheck']);
+                $this->recursive    = !empty($_POST['rc_recursive']);
                 $this->timeout      = empty($_POST['rc_timeout']) ? $this->timeout : abs((int) $_POST['rc_timeout']) * 60;
 
                 $settings = My::settings();
