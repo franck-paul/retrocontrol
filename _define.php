@@ -15,7 +15,7 @@ $this->registerModule(
     'Rétrocontrôle',
     'Trackback validity check',
     'Alain Vagner, Oleksandr Syenchuk',
-    '7.1',
+    '7.2',
     [
         'requires'    => [['core', '2.28']],
         'permissions' => 'My',
