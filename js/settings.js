@@ -1,7 +1,7 @@
 /*global $ */
 'use strict';
 
-$(() => {
+dotclear.ready(() => {
   $('#rc_sourceCheck').on('change', function () {
     if (this.checked) $('#sourceConfig').show();
     else $('#sourceConfig').hide();
