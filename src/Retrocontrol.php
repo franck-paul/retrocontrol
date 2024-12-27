@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief retrocontrol, a plugin for Dotclear 2
  *
@@ -100,8 +101,6 @@ class Retrocontrol
     /**
      * Get the IPV6 address from a hostname
      *
-     * @param string $hostname
-     *
      * @return string|null If no IPV6 address is found it will return null
      */
     private function gethostbyaddripv6(string $hostname): ?string
@@ -179,9 +178,6 @@ class Retrocontrol
         return '';
     }
 
-    /**
-     * @return never
-     */
     public static function preTrackback(string $args): never
     {
         [$post_id, App::frontend()->retrocontrol_tbc_key] = explode('/', $args);

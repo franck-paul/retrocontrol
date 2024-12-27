@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief retrocontrol, a plugin for Dotclear 2
  *
@@ -28,19 +29,19 @@ use Exception;
 
 class AntispamFilterRetrocontrol extends SpamFilter
 {
-    /** @var string Filter name */
+    /** Filter name */
     public string $name = 'Rétrocontrôle';
 
-    /** @var bool Filter has settings GUI? */
+    /** Filter has settings GUI? */
     public bool $has_gui = true;
 
-    private bool $sourceCheck  = false;
+    private bool $sourceCheck = false;
 
     private bool $timeoutCheck = false;
 
-    private bool $recursive    = true;
+    private bool $recursive = true;
 
-    private int $timeout       = 300;
+    private int $timeout = 300;
 
     /**
      * Sets the filter description.
@@ -84,15 +85,17 @@ class AntispamFilterRetrocontrol extends SpamFilter
      * @param      int     $post_id  The comment post_id
      * @param      string  $status   The comment status
      */
-    public function isSpam(string $type, ?string $author, ?string $email, ?string $site, ?string $ip, ?string $content, ?int $post_id, string &$status)
+    public function isSpam(string $type, ?string $author, ?string $email, ?string $site, ?string $ip, ?string $content, ?int $post_id, string &$status): ?bool
     {
         if ($type !== 'trackback') {
-            return;
+            return null;
         }
 
         if ($this->sourceCheck && (new Retrocontrol())->checkSource((string) $site, null, $this->recursive)) {
             return true;
         }
+
+        return null;
     }
 
     /**
