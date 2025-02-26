@@ -47,7 +47,7 @@ class Retrocontrol
         $errmsg = "\n" . 'Invalid trackback. Are you using an expired URL?';
 
         # Trackback not adjusted or too short key
-        if (!App::frontend()->retrocontrol_tbc_key || strlen(App::frontend()->retrocontrol_tbc_key) < 5) {
+        if (!App::frontend()->retrocontrol_tbc_key || strlen((string) App::frontend()->retrocontrol_tbc_key) < 5) {
             throw new Exception($errmsg);
         }
 
@@ -56,8 +56,8 @@ class Retrocontrol
         $timeout = $timeout ? (int) $timeout : 300;
 
         # Check key validity
-        $chk                                  = substr(App::frontend()->retrocontrol_tbc_key, 0, 4);
-        $key                                  = substr(App::frontend()->retrocontrol_tbc_key, 4);
+        $chk                                  = substr((string) App::frontend()->retrocontrol_tbc_key, 0, 4);
+        $key                                  = substr((string) App::frontend()->retrocontrol_tbc_key, 4);
         App::frontend()->retrocontrol_tbc_key = substr(md5($cur->post_id . App::config()->masterKey() . $key), 1, 4);
 
         if (App::frontend()->retrocontrol_tbc_key !== $chk) {
