@@ -135,14 +135,7 @@ class Retrocontrol
 
         # Recursive search
 
-        /**
-         * @var array<int, string>
-         */
         $sIP = $this->sIP ?: [];
-
-        /**
-         * @var array<int, string>
-         */
         $uIP = $this->uIP;
 
         while (true) {

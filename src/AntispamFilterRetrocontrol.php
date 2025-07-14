@@ -30,7 +30,7 @@ use Exception;
 class AntispamFilterRetrocontrol extends SpamFilter
 {
     /** Filter name */
-    public string $name = 'Rétrocontrôle';
+    public string $name = 'Retrocontrol';
 
     /** Filter has settings GUI? */
     public bool $has_gui = true;
