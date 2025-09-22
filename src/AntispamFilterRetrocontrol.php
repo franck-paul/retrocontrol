@@ -16,7 +16,6 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\retrocontrol;
 
 use Dotclear\App;
-use Dotclear\Core\Backend\Notices;
 use Dotclear\Helper\Html\Form\Checkbox;
 use Dotclear\Helper\Html\Form\Form;
 use Dotclear\Helper\Html\Form\Label;
@@ -129,7 +128,7 @@ class AntispamFilterRetrocontrol extends SpamFilter
                 $settings->put('timeout', $this->timeout, 'integer');
 
                 App::blog()->triggerBlog();
-                Notices::addSuccessNotice(__('Filter configuration have been successfully saved.'));
+                App::backend()->notices()->addSuccessNotice(__('Filter configuration have been successfully saved.'));
                 Http::redirect($url);
             } catch (Exception $e) {
                 App::error()->add($e->getMessage());
