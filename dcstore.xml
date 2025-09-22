@@ -1,11 +1,11 @@
 <modules xmlns:da="http://dotaddict.org/da/">
   <module id="retrocontrol">
     <name>Rétrocontrôle</name>
-    <version>8.0</version>
+    <version>8.1</version>
     <author>Alain Vagner, Oleksandr Syenchuk</author>
     <desc>Trackback validity check</desc>
-    <date>2025-09-07T15:50:33+0200</date>
-    <file>https://github.com/franck-paul/retrocontrol/releases/download/8.0/plugin-retrocontrol-8.0.zip</file>
+    <date>2025-09-22T10:26:39+0200</date>
+    <file>https://github.com/franck-paul/retrocontrol/releases/download/8.1/plugin-retrocontrol-8.1.zip</file>
     <da:dcmin>2.36</da:dcmin>
     <da:details>https://open-time.net/?q=retrocontrol</da:details>
     <da:support>https://github.com/franck-paul/retrocontrol</da:support>
