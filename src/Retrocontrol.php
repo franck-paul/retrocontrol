@@ -90,8 +90,8 @@ class Retrocontrol
     {
         $ret = [];
         if ($records = dns_get_record($name, DNS_A | DNS_AAAA)) {
-            foreach ($records as $e) {
-                $ret[] = $e[$e['type'] === 'A' ? 'ip' : 'ipv6'];
+            foreach ($records as $record) {
+                $ret[] = $record[$record['type'] === 'A' ? 'ip' : 'ipv6'];
             }
         }
 
@@ -129,7 +129,9 @@ class Retrocontrol
 
         if ($this->sIP && array_intersect($this->uIP, $this->sIP)) {
             return false;
-        } elseif (!$recursive) {
+        }
+
+        if (!$recursive) {
             return true;
         }
 
