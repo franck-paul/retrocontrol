@@ -63,7 +63,8 @@ class AntispamFilterRetrocontrol extends SpamFilter
         }
 
         if ($settings->timeout) {
-            $this->timeout = abs((int) $settings->timeout);
+            // Timeout setting
+            $this->timeout = is_numeric($timeout = $settings->rc_timeout) ? abs((int) $timeout) : 300;
         }
     }
 
@@ -116,10 +117,12 @@ class AntispamFilterRetrocontrol extends SpamFilter
     {
         if (isset($_POST['rc_send'])) {
             try {
+                $timeout = isset($_POST['rc_timeout']) && is_numeric($timeout = $_POST['rc_timeout']) ? (int) $timeout : 0;
+
                 $this->sourceCheck  = !empty($_POST['rc_sourceCheck']);
                 $this->timeoutCheck = !empty($_POST['rc_timeoutCheck']);
                 $this->recursive    = !empty($_POST['rc_recursive']);
-                $this->timeout      = empty($_POST['rc_timeout']) ? $this->timeout : abs((int) $_POST['rc_timeout']) * 60;
+                $this->timeout      = $timeout === 0 ? $this->timeout : $timeout * 60;
 
                 $settings = My::settings();
                 $settings->put('sourceCheck', $this->sourceCheck, 'boolean');

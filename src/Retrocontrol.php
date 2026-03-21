@@ -23,22 +23,22 @@ use Exception;
 class Retrocontrol
 {
     /**
-     * @var array<int, string>
+     * @var array<string>
      */
     public array $uHost = [];
 
     /**
-     * @var array<int, string>
+     * @var array<string>
      */
     public array $sHost = [];
 
     /**
-     * @var array<int, string>
+     * @var array<string>
      */
     public array $uIP = [];
 
     /**
-     * @var array<int, string>
+     * @var array<string>
      */
     public array $sIP = [];
 
@@ -46,27 +46,30 @@ class Retrocontrol
     {
         $errmsg = "\n" . 'Invalid trackback. Are you using an expired URL?';
 
-        # Trackback not adjusted or too short key
-        if (!App::frontend()->retrocontrol_tbc_key || strlen((string) App::frontend()->retrocontrol_tbc_key) < 5) {
+        $tbc_key = is_string($tbc_key = App::frontend()->retrocontrol_tbc_key) ? $tbc_key : '';
+
+        // Trackback not adjusted or too short key
+        if (strlen($tbc_key) < 5) {
             throw new Exception($errmsg);
         }
 
-        # Timeout setting
-        $timeout = My::settings()->rc_timeout;
-        $timeout = $timeout ? (int) $timeout : 300;
+        // Timeout setting
+        $timeout = is_numeric($timeout = My::settings()->rc_timeout) ? abs((int) $timeout) : 300;
 
-        # Check key validity
-        $chk                                  = substr((string) App::frontend()->retrocontrol_tbc_key, 0, 4);
-        $key                                  = substr((string) App::frontend()->retrocontrol_tbc_key, 4);
-        App::frontend()->retrocontrol_tbc_key = substr(md5($cur->post_id . App::config()->masterKey() . $key), 1, 4);
+        // Check key validity
+        $chk = substr($tbc_key, 0, 4);
+        $key = substr($tbc_key, 4);
+        $id  = is_numeric($id = $cur->post_id) ? (int) $id : 0;
+
+        App::frontend()->retrocontrol_tbc_key = substr(md5($id . App::config()->masterKey() . $key), 1, 4);
 
         if (App::frontend()->retrocontrol_tbc_key !== $chk) {
             throw new Exception($errmsg);
         }
 
-        # Check key expiration date
-        $post     = App::blog()->getPosts(['post_id' => $cur->post_id]);
-        $ts       = (int) $post->getTS();
+        // Check key expiration date
+        $post     = App::blog()->getPosts(['post_id' => $id]);
+        $ts       = is_numeric($ts = $post->getTS()) ? (int) $ts : 0;
         $curDate  = time() - $ts;
         $refDate  = (int) base_convert($key, 36, 10) ^ $ts;
         $diffDate = $curDate - $refDate;
@@ -88,10 +91,18 @@ class Retrocontrol
      */
     private function gethostbynamelipv6(string $name): array
     {
+        /**
+         * @var array<string>
+         */
         $ret = [];
         if ($records = dns_get_record($name, DNS_A | DNS_AAAA)) {
             foreach ($records as $record) {
-                $ret[] = $record[$record['type'] === 'A' ? 'ip' : 'ipv6'];
+                if (isset($record['type'])) {
+                    $key = $record['type'] === 'A' ? 'ip' : 'ipv6';
+                    if (isset($record[$key]) && is_string($record[$key])) {
+                        $ret[] = $record[$key];
+                    }
+                }
             }
         }
 
@@ -105,9 +116,14 @@ class Retrocontrol
      */
     private function gethostbyaddripv6(string $hostname): ?string
     {
-        $record = dns_get_record($hostname, DNS_AAAA);
+        if (!$record = dns_get_record($hostname, DNS_AAAA)) {
+            return null;
+        }
+        if (isset($record[0]['ipv6']) && is_string($record[0]['ipv6'])) {
+            return $record[0]['ipv6'];
+        }
 
-        return $record[0]['ipv6'] ?? null;
+        return null;
     }
 
     public function checkSource(string $url, ?string $ip = null, bool $recursive = true): bool
@@ -118,11 +134,12 @@ class Retrocontrol
             return true;
         }
 
-        $site = $site['host'];
-        $ip   = $ip ?: $_SERVER['REMOTE_ADDR'];
+        $site   = $site['host'];
+        $remote = is_string($remote = $_SERVER['REMOTE_ADDR']) ? $remote : '';
+        $ip     = $ip ?: $remote;
 
         # Initializing search data
-        $this->sIP   = $this->gethostbynamelipv6($site) ?: [];
+        $this->sIP   = $this->gethostbynamelipv6($site);
         $this->sHost = [$site, $this->getSLD($site)];
         $this->uIP   = [$ip];
         $this->uHost = [(string) $this->gethostbyaddripv6($this->uIP[0])];
@@ -183,10 +200,10 @@ class Retrocontrol
     }
 
     /**
-     * @param      array<int, string>       $ip        The IPs
-     * @param      array<int, string>       $allhosts  The hosts
+     * @param      array<string>       $ip        The IPs
+     * @param      array<string>       $allhosts  The hosts
      *
-     * @return     array<int, string>
+     * @return     array<string>
      */
     private function searchHost(array $ip, array $allhosts): array
     {
@@ -209,10 +226,10 @@ class Retrocontrol
     }
 
     /**
-     * @param      array<int, string>       $host    The host
-     * @param      array<int, string>       $allips  The IPs
+     * @param      array<string>       $host    The host
+     * @param      array<string>       $allips  The IPs
      *
-     * @return     array<int, string>
+     * @return     array<string>
      */
     private function searchIP(array $host, array $allips): array
     {

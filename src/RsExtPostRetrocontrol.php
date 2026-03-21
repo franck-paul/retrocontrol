@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief retrocontrol, a plugin for Dotclear 2
  *
@@ -22,9 +23,10 @@ class rsExtPostRetrocontrol
 {
     public static function getTrackbackLink(MetaRecord $rs): string
     {
-        $ts  = (int) $rs->getTS();
+        $ts  = is_numeric($ts = $rs->getTS()) ? (int) $ts : 0;
         $key = base_convert((string) ((time() - $ts) ^ $ts), 10, 36);
-        $chk = substr(md5($rs->post_id . App::config()->masterKey() . $key), 1, 4);
+        $id  = is_numeric($id = $rs->post_id) ? (int) $id : 0;
+        $chk = substr(md5($id . App::config()->masterKey() . $key), 1, 4);
 
         return Post::getTrackbackLink($rs) . '/' . $chk . $key;
     }
