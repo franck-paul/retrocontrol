@@ -134,7 +134,12 @@ class Retrocontrol
             return true;
         }
 
-        $site   = $site['host'];
+        $site = $site['host'] ?? '';
+        if ($site === '') {
+            # Bad URL => SPAM
+            return true;
+        }
+
         $remote = is_string($remote = $_SERVER['REMOTE_ADDR']) ? $remote : '';
         $ip     = $ip ?: $remote;
 
