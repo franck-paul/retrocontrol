@@ -125,10 +125,10 @@ class AntispamFilterRetrocontrol extends SpamFilter
                 $this->timeout      = $timeout === 0 ? $this->timeout : $timeout * 60;
 
                 $settings = My::settings();
-                $settings->put('sourceCheck', $this->sourceCheck, 'boolean');
-                $settings->put('timeoutCheck', $this->timeoutCheck, 'boolean');
-                $settings->put('recursive', $this->recursive, 'boolean');
-                $settings->put('timeout', $this->timeout, 'integer');
+                $settings->put('sourceCheck', $this->sourceCheck, App::blogWorkspace()::NS_BOOL);
+                $settings->put('timeoutCheck', $this->timeoutCheck, App::blogWorkspace()::NS_BOOL);
+                $settings->put('recursive', $this->recursive, App::blogWorkspace()::NS_BOOL);
+                $settings->put('timeout', $this->timeout, App::blogWorkspace()::NS_INT);
 
                 App::blog()->triggerBlog();
                 App::backend()->notices()->addSuccessNotice(__('Filter configuration have been successfully saved.'));
