@@ -159,7 +159,7 @@ class Retrocontrol
 
         # Recursive search
 
-        $sIP = $this->sIP ?: [];
+        $sIP = $this->sIP;
         $uIP = $this->uIP;
 
         while (true) {
