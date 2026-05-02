@@ -119,6 +119,7 @@ class Retrocontrol
         if (!$record = dns_get_record($hostname, DNS_AAAA)) {
             return null;
         }
+
         if (isset($record[0]['ipv6']) && is_string($record[0]['ipv6'])) {
             return $record[0]['ipv6'];
         }
