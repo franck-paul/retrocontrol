@@ -25,7 +25,7 @@ class rsExtPostRetrocontrol
     {
         $ts  = is_numeric($ts = $rs->getTS()) ? (int) $ts : 0;
         $key = base_convert((string) ((time() - $ts) ^ $ts), 10, 36);
-        $id  = is_numeric($id = $rs->post_id) ? (int) $id : 0;
+        $id  = $rs->intField('post_id');
         $chk = substr(md5($id . App::config()->masterKey() . $key), 1, 4);
 
         return Post::getTrackbackLink($rs) . '/' . $chk . $key;
