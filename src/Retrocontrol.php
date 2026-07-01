@@ -130,7 +130,7 @@ class Retrocontrol
     public function checkSource(string $url, ?string $ip = null, bool $recursive = true): bool
     {
         $site = @parse_url($url);
-        if (!($site && $url)) {
+        if (!$site || !$url) {
             # Bad URL => SPAM
             return true;
         }
