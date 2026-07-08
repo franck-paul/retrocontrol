@@ -42,7 +42,7 @@ class Prepend
 
         if (App::blog()->isDefined()) {
             $settings = My::settings();
-            if ($settings->timeoutCheck) {
+            if ($settings->getBool('timeoutCheck')) {
                 App::behavior()->addBehavior('coreBlogGetPosts', Retrocontrol::adjustTrackbackURL(...));
                 App::behavior()->addBehavior('publicBeforeTrackbackCreate', Retrocontrol::checkTimeout(...));
                 App::url()->register('trackback', 'trackback', '^trackback/([0-9]+/[0-9a-z]+)$', Retrocontrol::preTrackback(...));

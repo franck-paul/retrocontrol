@@ -54,7 +54,7 @@ class Retrocontrol
         }
 
         // Timeout setting
-        $timeout = is_numeric($timeout = My::settings()->rc_timeout) ? abs((int) $timeout) : 300;
+        $timeout = My::settings()->getInt('rc_timeout', false) ?: 300;
 
         // Check key validity
         $chk = substr($tbc_key, 0, 4);

@@ -50,21 +50,21 @@ class AntispamFilterRetrocontrol extends SpamFilter
         $this->description = __('Trackback source check');
 
         $settings = My::settings();
-        if ($settings->sourceCheck !== null) {
-            $this->sourceCheck = (bool) $settings->sourceCheck;
+        if ($settings->get('sourceCheck') !== null) {
+            $this->sourceCheck = $settings->getBool('sourceCheck', false);
         }
 
-        if ($settings->timeoutCheck !== null) {
-            $this->timeoutCheck = (bool) $settings->timeoutCheck;
+        if ($settings->get('timeoutCheck') !== null) {
+            $this->timeoutCheck = $settings->getBool('timeoutCheck', false);
         }
 
-        if ($settings->recursive !== null) {
-            $this->recursive = (bool) $settings->recursive;
+        if ($settings->get('recursive') !== null) {
+            $this->recursive = $settings->getBool('recursive', false);
         }
 
-        if ($settings->timeout) {
+        if ($settings->get('timeout') !== null) {
             // Timeout setting
-            $this->timeout = is_numeric($timeout = $settings->rc_timeout) ? abs((int) $timeout) : 300;
+            $this->timeout = $settings->getInt('rc_timeout', false) ?: 300;
         }
     }
 
