@@ -69,7 +69,7 @@ class Retrocontrol
 
         // Check key expiration date
         $post     = App::blog()->getPosts(['post_id' => $id]);
-        $ts       = is_numeric($ts = $post->getTS()) ? (int) $ts : 0;
+        $ts       = $post->getTS();
         $curDate  = time() - $ts;
         $refDate  = (int) base_convert($key, 36, 10) ^ $ts;
         $diffDate = $curDate - $refDate;

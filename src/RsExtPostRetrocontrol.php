@@ -23,7 +23,7 @@ class rsExtPostRetrocontrol
 {
     public static function getTrackbackLink(MetaRecord $rs): string
     {
-        $ts  = is_numeric($ts = $rs->getTS()) ? (int) $ts : 0;
+        $ts  = $rs->getTS();
         $key = base_convert((string) ((time() - $ts) ^ $ts), 10, 36);
         $id  = $rs->intField('post_id');
         $chk = substr(md5($id . App::config()->masterKey() . $key), 1, 4);
