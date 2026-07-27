@@ -167,18 +167,18 @@ class Retrocontrol
             $sHost = $this->searchHost($sIP, $this->sHost);
             $uHost = $this->searchHost($uIP, $this->uHost);
 
-            if (($sHost && array_intersect($sHost, $this->uHost)) || (
-                $uHost && array_intersect($uHost, $this->sHost)
-            )) {
+            if (($sHost && array_intersect($sHost, $this->uHost))
+                || ($uHost && array_intersect($uHost, $this->sHost))
+            ) {
                 return false;
             }
 
             $sIP = $this->searchIP($sHost, $this->sIP);
             $uIP = $this->searchIP($uHost, $this->uIP);
 
-            if (($sIP && array_intersect($sIP, $this->uIP)) || (
-                $uIP && array_intersect($uIP, $this->sIP)
-            )) {
+            if (($sIP && array_intersect($sIP, $this->uIP))
+                || ($uIP && array_intersect($uIP, $this->sIP))
+            ) {
                 return false;
             }
 
