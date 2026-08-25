@@ -22,7 +22,7 @@ if (isset($this) && is_object($this) && method_exists($this, 'registerModule') &
         '9.0',
         [
             'date'        => '2026-08-03T10:09:21+0200',
-            'requires'    => [['core', '2.39']],
+            'requires'    => [['core', '2.40']],
             'permissions' => 'My',
             'priority'    => 1001,
             'type'        => 'plugin',

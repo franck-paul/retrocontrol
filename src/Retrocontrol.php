@@ -59,7 +59,7 @@ class Retrocontrol
         // Check key validity
         $chk = substr($tbc_key, 0, 4);
         $key = substr($tbc_key, 4);
-        $id  = is_numeric($id = $cur->post_id) ? (int) $id : 0;
+        $id  = $cur->intField('post_id');
 
         App::frontend()->retrocontrol_tbc_key = substr(md5($id . App::config()->masterKey() . $key), 1, 4);
 
