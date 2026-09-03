@@ -42,7 +42,7 @@ class Retrocontrol
      */
     public array $sIP = [];
 
-    public static function checkTimeout(Cursor $cur): string
+    public static function checkTimeout(Cursor $cursor): string
     {
         $errmsg = "\n" . 'Invalid trackback. Are you using an expired URL?';
 
@@ -59,7 +59,7 @@ class Retrocontrol
         // Check key validity
         $chk = substr($tbc_key, 0, 4);
         $key = substr($tbc_key, 4);
-        $id  = $cur->intField('post_id');
+        $id  = $cursor->intField('post_id');
 
         App::frontend()->retrocontrol_tbc_key = substr(md5($id . App::config()->masterKey() . $key), 1, 4);
 
@@ -188,10 +188,10 @@ class Retrocontrol
         }
     }
 
-    public static function adjustTrackbackURL(MetaRecord $rs): string
+    public static function adjustTrackbackURL(MetaRecord $metaRecord): string
     {
         # Override getTrackbackLink method
-        $rs->extend(rsExtPostRetrocontrol::class);
+        $metaRecord->extend(rsExtPostRetrocontrol::class);
 
         return '';
     }

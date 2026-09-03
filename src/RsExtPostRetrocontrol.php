@@ -21,13 +21,13 @@ use Dotclear\Schema\Extension\Post;
 
 class rsExtPostRetrocontrol
 {
-    public static function getTrackbackLink(MetaRecord $rs): string
+    public static function getTrackbackLink(MetaRecord $metaRecord): string
     {
-        $ts  = $rs->getTS();
+        $ts  = $metaRecord->getTS();
         $key = base_convert((string) ((time() - $ts) ^ $ts), 10, 36);
-        $id  = $rs->intField('post_id');
+        $id  = $metaRecord->intField('post_id');
         $chk = substr(md5($id . App::config()->masterKey() . $key), 1, 4);
 
-        return Post::getTrackbackLink($rs) . '/' . $chk . $key;
+        return Post::getTrackbackLink($metaRecord) . '/' . $chk . $key;
     }
 }
