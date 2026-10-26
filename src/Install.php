@@ -38,7 +38,7 @@ class Install
         try {
             // Update
             $old_version = App::version()->getVersion(My::id());
-            if (version_compare((string) $old_version, '4.0', '<')) {
+            if (version_compare($old_version, '4.0', '<')) {
                 // Change settings names (remove rc_ prefix in them)
                 $rename = static function (string $name, BlogWorkspaceInterface $blogWorkspace): void {
                     if ($blogWorkspace->settingExists('rc_' . $name, true)) {
