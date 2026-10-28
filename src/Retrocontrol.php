@@ -223,7 +223,7 @@ class Retrocontrol
             $host = (string) $this->gethostbyaddripv6($v);
             $host = ($host === $v) ? false : $this->getSLD($host);
 
-            if ($host && !in_array($host, $allhosts)) {
+            if ($host && !in_array($host, $allhosts, true)) {
                 $allhosts[] = $res[] = $host;
             }
         }
@@ -253,7 +253,7 @@ class Retrocontrol
             }
 
             foreach ($ip as $v) {
-                if (!in_array($v, $allips)) {
+                if (!in_array($v, $allips, true)) {
                     $allips[] = $res[] = $v;
                 }
             }
