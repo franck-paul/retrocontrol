@@ -95,7 +95,9 @@ class Retrocontrol
          * @var array<string>
          */
         $ret = [];
-        if ($records = dns_get_record($name, DNS_A | DNS_AAAA)) {
+
+        $records = dns_get_record($name, DNS_A | DNS_AAAA);
+        if ($records !== false) {
             foreach ($records as $record) {
                 if (isset($record['type'])) {
                     $key = $record['type'] === 'A' ? 'ip' : 'ipv6';
@@ -116,7 +118,8 @@ class Retrocontrol
      */
     private function gethostbyaddripv6(string $hostname): ?string
     {
-        if (!$record = dns_get_record($hostname, DNS_AAAA)) {
+        $record = dns_get_record($hostname, DNS_AAAA);
+        if ($record === false) {
             return null;
         }
 
@@ -130,7 +133,7 @@ class Retrocontrol
     public function checkSource(string $url, ?string $ip = null, bool $recursive = true): bool
     {
         $site = @parse_url($url);
-        if (!$site || !$url) {
+        if ($site === false || $url === '') {
             # Bad URL => SPAM
             return true;
         }
@@ -150,7 +153,7 @@ class Retrocontrol
         $this->uIP   = [$ip];
         $this->uHost = [(string) $this->gethostbyaddripv6($this->uIP[0])];
 
-        if ($this->sIP && array_intersect($this->uIP, $this->sIP)) {
+        if ($this->sIP !== [] && array_intersect($this->uIP, $this->sIP) !== []) {
             return false;
         }
 
@@ -167,8 +170,8 @@ class Retrocontrol
             $sHost = $this->searchHost($sIP, $this->sHost);
             $uHost = $this->searchHost($uIP, $this->uHost);
 
-            if (($sHost && array_intersect($sHost, $this->uHost))
-                || ($uHost && array_intersect($uHost, $this->sHost))
+            if (($sHost !== [] && array_intersect($sHost, $this->uHost) !== [])
+                || ($uHost !== [] && array_intersect($uHost, $this->sHost) !== [])
             ) {
                 return false;
             }
@@ -176,13 +179,13 @@ class Retrocontrol
             $sIP = $this->searchIP($sHost, $this->sIP);
             $uIP = $this->searchIP($uHost, $this->uIP);
 
-            if (($sIP && array_intersect($sIP, $this->uIP))
-                || ($uIP && array_intersect($uIP, $this->sIP))
+            if (($sIP !== [] && array_intersect($sIP, $this->uIP) !== [])
+                || ($uIP !== [] && array_intersect($uIP, $this->sIP) !== [])
             ) {
                 return false;
             }
 
-            if (!($uHost || $sHost || $uIP || $sIP)) {
+            if (!($uHost !== [] || $sHost !== [] || $uIP !== [] || $sIP !== [])) {
                 return true;
             }
         }
@@ -223,7 +226,7 @@ class Retrocontrol
             $host = (string) $this->gethostbyaddripv6($v);
             $host = ($host === $v) ? false : $this->getSLD($host);
 
-            if ($host && !in_array($host, $allhosts, true)) {
+            if ($host !== false && !in_array($host, $allhosts, true)) {
                 $allhosts[] = $res[] = $host;
             }
         }
@@ -252,9 +255,9 @@ class Retrocontrol
                 continue;
             }
 
-            foreach ($ip as $v) {
-                if (!in_array($v, $allips, true)) {
-                    $allips[] = $res[] = $v;
+            foreach ($ip as $w) {
+                if (!in_array($w, $allips, true)) {
+                    $allips[] = $res[] = $w;
                 }
             }
         }
