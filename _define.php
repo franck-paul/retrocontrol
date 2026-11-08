@@ -19,9 +19,9 @@ if (isset($this) && is_object($this) && method_exists($this, 'registerModule') &
         'Rétrocontrôle',
         'Trackback validity check',
         'Alain Vagner, Oleksandr Syenchuk',
-        '9.0',
+        '10.0',
         [
-            'date'        => '2026-08-03T10:09:21+0200',
+            'date'        => '2026-11-08T10:20:03+0100',
             'requires'    => [['core', '2.40']],
             'permissions' => 'My',
             'priority'    => 1001,
